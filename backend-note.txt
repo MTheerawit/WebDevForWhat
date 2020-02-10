@@ -1,0 +1,31 @@
+create 'server' folder,
+// install dependencies
+npm init -y
+npm install --save express body-parser cors pg
+
+creating index.js,
+
+// create db
+create table TRADE (
+    date varchar(10),
+    symbol varchar(10),
+    open float(24),
+    high float(24),
+    low float(24),
+    close float(24),
+    percentChange float(24),
+    volume bigint,
+    money bigint,
+    money5 float(53),
+    sma5 float(24),
+    macd float(24),
+    macd10 float(24),
+    rsi float(24),
+    status varchar(2),
+    primary key(date, symbol)
+);
+
+copy trade from 'D:\Project4D_resource\trade-set50.csv' delimiter ',' csv header;
+
+// pool-connections.js for pool connection
+// getStock.js >> show all rows in trade table
