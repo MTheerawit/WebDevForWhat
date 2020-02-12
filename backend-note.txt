@@ -29,3 +29,18 @@ copy trade from 'D:\Project4D_resource\trade-set50.csv' delimiter ',' csv header
 
 // pool-connections.js for pool connection
 // getStock.js >> show all rows in trade table
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// pass params as array
+// encode in front-end
+stockList = [{"name":"GULF","amount":10000},{"name":"GPSC","amount":5000}]
+stockList = encodeURIComponent(JSON.stringify(stockList))
+// decode from request 
+stockList = req.params.stockList
+stockList = JSON.parse(decodeURIComponent(stockList))
+
+// test getSimulatedStock.js 
+// http://localhost:9000/getSimulatedStock/%5B%7B%22name%22%3A%22GULF%22%2C%22amount%22%3A10000%7D%2C%7B%22name%22%3A%22GPSC%22%2C%22amount%22%3A5000%7D%5D/%5B%7B%22beginDate%22%3A%222019-08-01%22%2C%22endDate%22%3A%222019-10-31%22%7D%5D
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

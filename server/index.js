@@ -18,8 +18,7 @@ app.get('/', (req, res) => {
 })
 app.get('/set50', getStock)
 app.get('/getRecStock', getRecStock)
-app.get('/getSimulatedStock/', getSimulatedStock)
-// app.get('/getSimulatedStock/:stockList/:dateRange', getSimulatedStock)
+app.get('/getSimulatedStock/:stockList/:dateRange', getSimulatedStock)
 
 app.listen(port, () => {
     console.log('App running on port ' + port)

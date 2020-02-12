@@ -2,14 +2,16 @@ const pool = require('./pool-connection')
 
 const getSimulatedStock = (req, res) => {
 
-    symbol = [{"name":"GULF", "amount": 10000}, {"name":"GPSC", "amount": 5000}]
-    date = [{"beginDate": '2019-08-01', "endDate": '2019-10-31'}]
+    stockList = req.params.stockList
+    stockList = JSON.parse(decodeURIComponent(stockList))
+    dateRange = req.params.dateRange
+    dateRange = JSON.parse(decodeURIComponent(dateRange))
 
     // all symbol string query
     allStockStr = "("
-    for(i=0; i<symbol.length; i++){
-        allStockStr += "symbol = '" + symbol[i].name + "' "
-        if(i != symbol.length-1){
+    for(i=0; i<stockList.length; i++){
+        allStockStr += "symbol = '" + stockList[i].name + "' "
+        if(i != stockList.length-1){
             allStockStr += "or "
         }else{
             allStockStr += ") "
@@ -18,22 +20,21 @@ const getSimulatedStock = (req, res) => {
 
     queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade \
     where " + allStockStr + " \
-    and (status = '1' or status = '-1') \
-    and date between '" + date[0].beginDate + "' and '" + date[0].endDate + "';"
+    and date between '" + dateRange[0].beginDate + "' and '" + dateRange[0].endDate + "' \
+    order by date asc;"
     pool.query(queryStr , (err, results) => {
         if(err){
             throw err
         }
 
-        res.status(200).json(results.rows)
-
         // all stock
-        for(j = 0; j<symbol.length; j++){
-            balance = symbol[j].amount
+        historyList = []
+        for(j = 0; j<stockList.length; j++){
+            balance = stockList[j].amount
             numOfStock = 0
-            console.log(symbol[j].name)
+            console.log(stockList[j].name)
             for(i = 0; i<results.rows.length; i++){
-                if(results.rows[i].symbol == symbol[j].name){
+                if(results.rows[i].symbol == stockList[j].name){
                     if(balance > results.rows[i].close){
                         // buy
                         if(results.rows[i].status == '1'){
@@ -45,15 +46,19 @@ const getSimulatedStock = (req, res) => {
                             balance -= buyAmount
                             console.log("Buy")
                             console.log(balance)
+                            historyList.push(results.rows[i])
                         }
                         // sell
-                        else {
+                        else if(results.rows[i].status == '-1'){
                             stockPrice = results.rows[i].close
-                            sellAmount = stockPrice*numOfStock
-                            balance += sellAmount
-                            numOfStock = 0
-                            console.log("Sell")
-                            console.log(balance)
+                            if(numOfStock != 0){
+                                sellAmount = stockPrice*numOfStock
+                                balance += sellAmount
+                                numOfStock = 0
+                                console.log("Sell")
+                                console.log(balance)
+                                historyList.push(results.rows[i])
+                            }
                         }
                     }
                 }
@@ -67,14 +72,8 @@ const getSimulatedStock = (req, res) => {
             console.log(balance)
             console.log("------------------------------------")
         }    
-
-        // historyList = []
-        // for(i = 0; i<results.rows.length; i++){
-        //     if(results.rows[i].status = '1'){
-        //         historyList.push(results.rows[i])
-        //     }
-        // }
-        // res.status(200).json(historyList)
+        res.status(200).json(historyList)
+        // res.status(200).json(results.rows)
     })
 }
 
