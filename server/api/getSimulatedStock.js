@@ -27,42 +27,46 @@ const getSimulatedStock = (req, res) => {
 
         res.status(200).json(results.rows)
 
-        // one stock
-        balance = symbol[0].amount
-        numOfStock = 0
-        for(i = 0; i<results.rows.length; i++){
-            if(results.rows[i].symbol == symbol[0].name){
-                if(balance > results.rows[i].close){
-                    //buy
-                    if(results.rows[i].status == '1'){
-                        buyAmount = balance/2.0
-                        stockPrice = results.rows[i].close
-                        numOfBuyStock = parseInt(buyAmount/stockPrice)
-                        buyAmount = stockPrice*numOfBuyStock
-                        numOfStock += numOfBuyStock
-                        balance -= buyAmount
-                        console.log("Buy")
-                        console.log(balance)
-                    } 
-                    else {
-                        stockPrice = results.rows[i].close
-                        sellAmount = stockPrice*numOfStock
-                        balance += sellAmount
-                        numOfStock = 0
-                        console.log("Sell")
-                        console.log(balance)
+        // all stock
+        for(j = 0; j<symbol.length; j++){
+            balance = symbol[j].amount
+            numOfStock = 0
+            console.log(symbol[j].name)
+            for(i = 0; i<results.rows.length; i++){
+                if(results.rows[i].symbol == symbol[j].name){
+                    if(balance > results.rows[i].close){
+                        // buy
+                        if(results.rows[i].status == '1'){
+                            buyAmount = balance/2.0
+                            stockPrice = results.rows[i].close
+                            numOfBuyStock = parseInt(buyAmount/stockPrice)
+                            buyAmount = stockPrice*numOfBuyStock
+                            numOfStock += numOfBuyStock
+                            balance -= buyAmount
+                            console.log("Buy")
+                            console.log(balance)
+                        }
+                        // sell
+                        else {
+                            stockPrice = results.rows[i].close
+                            sellAmount = stockPrice*numOfStock
+                            balance += sellAmount
+                            numOfStock = 0
+                            console.log("Sell")
+                            console.log(balance)
+                        }
                     }
                 }
             }
-        }
-        // Check net balance
-        stockPrice = results.rows[results.rows.length-1].close
-        sellAmount = stockPrice*numOfStock
-        balance += sellAmount
-        numOfStock = 0
-        console.log("Total Balance After sell all stock:")
-        console.log(balance)
-            
+            // Check net balance
+            stockPrice = results.rows[results.rows.length-1].close
+            sellAmount = stockPrice*numOfStock
+            balance += sellAmount
+            numOfStock = 0
+            console.log("Total Balance After sell all stock:")
+            console.log(balance)
+            console.log("------------------------------------")
+        }    
 
         // historyList = []
         // for(i = 0; i<results.rows.length; i++){
