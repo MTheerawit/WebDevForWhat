@@ -20,8 +20,7 @@ const getSimulatedStock = (req, res) => {
 
     queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade \
     where " + allStockStr + " \
-    and date between '" + dateRange[0].beginDate + "' and '" + dateRange[0].endDate + "' \
-    order by date asc;"
+    and date between '" + dateRange[0].beginDate + "' and '" + dateRange[0].endDate + "';"
     pool.query(queryStr , (err, results) => {
         if(err){
             throw err
@@ -32,33 +31,38 @@ const getSimulatedStock = (req, res) => {
         for(j = 0; j<stockList.length; j++){
             balance = stockList[j].amount
             numOfStock = 0
+            limitedBuy = 0
             console.log(stockList[j].name)
             for(i = 0; i<results.rows.length; i++){
                 if(results.rows[i].symbol == stockList[j].name){
-                    if(balance > results.rows[i].close){
                         // buy
-                        if(results.rows[i].status == '1'){
+                    if(results.rows[i].status == '1' && balance > results.rows[i].close && limitedBuy < 3){
+                        stockPrice = results.rows[i].close
+                        if(limitedBuy < 2){
                             buyAmount = balance/2.0
-                            stockPrice = results.rows[i].close
-                            numOfBuyStock = parseInt(buyAmount/stockPrice)
-                            buyAmount = stockPrice*numOfBuyStock
-                            numOfStock += numOfBuyStock
-                            balance -= buyAmount
-                            console.log("Buy")
+                        }else {
+                            buyAmount = balance
+                        }
+                        numOfBuyStock = parseInt(buyAmount/stockPrice)
+                        buyAmount = stockPrice*numOfBuyStock
+                        numOfStock += numOfBuyStock
+                        balance -= buyAmount
+                        limitedBuy += 1
+                        console.log("Buy")
+                        console.log(balance)
+                        historyList.push(results.rows[i])
+                    }
+                    // sell
+                    else if(results.rows[i].status == '-1'){
+                        stockPrice = results.rows[i].close
+                        if(numOfStock != 0){
+                            sellAmount = stockPrice*numOfStock
+                            balance += sellAmount
+                            numOfStock = 0
+                            limitedBuy = 0
+                            console.log("Sell")
                             console.log(balance)
                             historyList.push(results.rows[i])
-                        }
-                        // sell
-                        else if(results.rows[i].status == '-1'){
-                            stockPrice = results.rows[i].close
-                            if(numOfStock != 0){
-                                sellAmount = stockPrice*numOfStock
-                                balance += sellAmount
-                                numOfStock = 0
-                                console.log("Sell")
-                                console.log(balance)
-                                historyList.push(results.rows[i])
-                            }
                         }
                     }
                 }
