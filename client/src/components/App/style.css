@@ -1,0 +1,95 @@
+
+.fontHeader{
+  font-size: 64px;
+  color: floralwhite;
+  padding-left: 20px; 
+  padding: 5px;
+}
+
+.fontDayAndMont{
+  font-size: 18px;
+  color: floralwhite;
+  padding-left: 10px;
+  padding: 10px;
+}
+
+.web-header {
+  background-color: #0a2153;
+  display: block;
+  width: 100%;
+  padding: 5px;
+}
+
+.web-background {
+  background-color: #14213d;
+  display: block;
+  width: 100%;
+  padding: 5px;
+}
+
+.fonttable{
+  font-size: 18px;
+  color: floralwhite;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding: 10px;
+}
+
+.coloer-table-header {
+  background-color: #081324;
+}
+
+.coloer-table {
+  background-color: #44587a;
+}
+
+.coloer-area {
+  background-color: #0d1424;
+}
+
+.coloer-area2 {
+  background-color: #f1f9ff;
+}
+
+.coloer-area3 {
+  background-color: #ffffff;
+}
+
+.coloer-buy-upward {
+  background-color: #00ff11;
+}
+
+.coloer-sell-downward {
+  background-color: #ff0000;
+}
+
+.coloer-Cyan {
+  background-color: #00ffff;
+}
+
+.coloer-SpringGreen {
+  background-color: #00ff7f;
+}
+
+.coloer-Gold {
+  background-color: #ffd700;
+}
+
+.coloer-HotPink {
+  background-color: #ff69b4;
+}
+
+.coloer-MediumPurple {
+  background-color: #9370db;
+}
+
+.boxsearch{
+  font-size: 24px;
+  width: 280px;
+  display: block;
+  padding-left: 8px;
+}
+
+.ant-input-number {
+  margin-right: 10px;
+}
