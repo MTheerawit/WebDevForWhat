@@ -83,13 +83,21 @@
   background-color: #9370db;
 }
 
-.boxsearch{
+.boxinput{
   font-size: 24px;
   width: 280px;
   display: block;
   padding-left: 8px;
 }
 
-.ant-input-number {
-  margin-right: 10px;
+.ant-Icon-Rise  {
+  color: #00ff11;
+}
+
+.ant-Icon-Fall  {
+  color: #ff0000;
+}
+
+.ant-Icon-Same  {
+  color: #f1f9ff;
 }
