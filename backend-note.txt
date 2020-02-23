@@ -6,6 +6,13 @@ npm install --save express body-parser cors pg
 creating index.js,
 
 // create db
+
+create table COMPANY (
+    symbol varchar(10) primary key,
+    set50 varchar(4),
+    set100 varchar(4)
+);
+
 create table TRADE (
     date date,
     symbol varchar(10),
@@ -14,15 +21,13 @@ create table TRADE (
     low float(24),
     close float(24),
     percentChange float(24),
-    volume bigint,
-    money bigint,
-    money5 float(53),
-    sma5 float(24),
+    volume float(53),
+    money float(53),
     macd float(24),
-    macd10 float(24),
     rsi float(24),
     status varchar(4),
-    primary key(date, symbol)
+    primary key(date, symbol),
+    foreign key (symbol) references COMPANY(symbol)
 );
 
 copy trade from 'D:\Project4D_resource\trade-set50.csv' delimiter ',' csv header;
@@ -39,6 +44,8 @@ stockList = encodeURIComponent(JSON.stringify(stockList))
 // decode from request 
 stockList = req.params.stockList
 stockList = JSON.parse(decodeURIComponent(stockList))
+
+dateRange = [{beginDate: '2019-08-01', endDate: '2019-10-31'}]
 
 // test getSimulatedStock.js 
 // http://localhost:9000/getSimulatedStock/%5B%7B%22name%22%3A%22GULF%22%2C%22amount%22%3A10000%7D%2C%7B%22name%22%3A%22GPSC%22%2C%22amount%22%3A5000%7D%5D/%5B%7B%22beginDate%22%3A%222019-08-01%22%2C%22endDate%22%3A%222019-10-31%22%7D%5D
