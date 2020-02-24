@@ -1,4 +1,5 @@
 const pool = require('./pool-connection')
+const moment = require('moment')
 
 const getProfitPercent = (req, res) => {
 
@@ -7,9 +8,9 @@ const getProfitPercent = (req, res) => {
     // dateRange = req.params.dateRange
     // dateRange = JSON.parse(decodeURIComponent(dateRange))
 
-    stockList = [{"name":"SCC","amount":10000},{"name":"MTC","amount":10000},{"name":"PTT","amount":10000},{"name":"BEM","amount":10000},{"name":"BANPU","amount":10000}]
+    stockList = [{"name":"GPSC","amount":10000},{"name":"BEM","amount":10000},{"name":"BGRIM","amount":10000},{"name":"CPF","amount":10000},{"name":"BTS","amount":10000}]
     // stockList = [{"name":"EGCO","amount":10000},{"name":"CPN","amount":10000},{"name":"BANPU","amount":10000},{"name":"TMB","amount":10000}]
-    dateRange = [{beginDate: '2019-12-27', endDate: '2020-1-24'}]
+    dateRange = [{beginDate: '2019-8-22', endDate: '2019-11-14'}]
 
     // all symbol string query
     allStockStr = "("
@@ -33,6 +34,7 @@ const getProfitPercent = (req, res) => {
 
         // all stock
         profitStockList = []
+        lastDate = moment(results.rows[results.rows.length-1].date).format('YYYY-MM-DD')
         for(j = 0; j<stockList.length; j++){
             balance = stockList[j].amount
             numOfStock = 0
@@ -42,8 +44,7 @@ const getProfitPercent = (req, res) => {
             for(i = 0; i<results.rows.length; i++){
                 if(results.rows[i].symbol == stockList[j].name){
                     // buy
-                    if(results.rows[i].status == '1.0' && (balance-50)*0.99843 > results.rows[i].close && limitedBuy < 3){
-                        balance = (balance-50)*0.99843
+                    if(results.rows[i].status == '1.0' && balance > results.rows[i].close && limitedBuy < 3){
                         stockPrice = results.rows[i].close
                         if(limitedBuy < 2){
                             buyAmount = balance/2.0
@@ -52,34 +53,38 @@ const getProfitPercent = (req, res) => {
                         }
                         numOfBuyStock = parseInt(buyAmount/stockPrice)
                         buyAmount = stockPrice*numOfBuyStock
+                        fee = buyAmount*0.00157*1.07
                         numOfStock += numOfBuyStock
                         balance -= buyAmount
+                        balance -= fee
                         limitedBuy += 1
                     }
                     // sell
                     else if(results.rows[i].status == '-1.0'){
-                        balance = (balance-50)*0.99843
+                        balance = balance
                         stockPrice = results.rows[i].close
                         if(numOfStock != 0){
                             sellAmount = stockPrice*numOfStock
+                            fee = sellAmount*0.00157*1.07
                             balance += sellAmount
+                            balance -= fee
                             numOfStock = 0
                             limitedBuy = 0
                         }
                     }
                     stockPrice = results.rows[i].close
-                }
-                d = new Date(results.rows[i].date)
-                date = d.getUTCFullYear().toString() + '-' + (d.getUTCMonth()+1).toString() + '-' + (d.getUTCDate()+1).toString()
-                if(results.rows[i].symbol == stockList[j].name && date == dateRange[0].endDate){
-                    sellAmount = stockPrice*numOfStock
-                    balance += sellAmount
-                    numOfStock = 0
-                    balance = (balance-50)*0.99843
-                    profit = (balance - stockList[j].amount) / 100
-                    console.log(profit)
-                    console.log("------------------------------------")
-                    profitStockList.push({"name": stockList[j].name, "profit": profit})
+                    date = moment(results.rows[i].date).format('YYYY-MM-DD')
+                    if(date == lastDate){
+                        sellAmount = stockPrice*numOfStock
+                        fee = sellAmount*0.00157*1.07
+                        balance += sellAmount
+                        balance -= fee
+                        numOfStock = 0
+                        profit = (balance - stockList[j].amount) / 100
+                        console.log(profit)
+                        console.log("-------------------")
+                        profitStockList.push({"name": stockList[j].name, "profit": profit})
+                    }
                 }
             }
             
