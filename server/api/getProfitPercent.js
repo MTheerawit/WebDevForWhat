@@ -7,9 +7,9 @@ const getProfitPercent = (req, res) => {
     // dateRange = req.params.dateRange
     // dateRange = JSON.parse(decodeURIComponent(dateRange))
 
-    stockList = [{"name":"GPSC","amount":10000},{"name":"BEM","amount":10000},{"name":"BGRIM","amount":10000},{"name":"CPF","amount":10000},{"name":"BTS","amount":10000}]
-    // stockList = [{"name":"BEM","amount":10000}]
-    dateRange = [{beginDate: '2019-8-22', endDate: '2019-9-5'}]
+    stockList = [{"name":"SCC","amount":10000},{"name":"MTC","amount":10000},{"name":"PTT","amount":10000},{"name":"BEM","amount":10000},{"name":"BANPU","amount":10000}]
+    // stockList = [{"name":"EGCO","amount":10000},{"name":"CPN","amount":10000},{"name":"BANPU","amount":10000},{"name":"TMB","amount":10000}]
+    dateRange = [{beginDate: '2019-12-27', endDate: '2020-1-24'}]
 
     // all symbol string query
     allStockStr = "("
@@ -37,6 +37,7 @@ const getProfitPercent = (req, res) => {
             balance = stockList[j].amount
             numOfStock = 0
             limitedBuy = 0
+            stockPrice = 0.0
             console.log(stockList[j].name)
             for(i = 0; i<results.rows.length; i++){
                 if(results.rows[i].symbol == stockList[j].name){
@@ -66,31 +67,25 @@ const getProfitPercent = (req, res) => {
                             limitedBuy = 0
                         }
                     }
+                    stockPrice = results.rows[i].close
                 }
                 d = new Date(results.rows[i].date)
                 date = d.getUTCFullYear().toString() + '-' + (d.getUTCMonth()+1).toString() + '-' + (d.getUTCDate()+1).toString()
                 if(results.rows[i].symbol == stockList[j].name && date == dateRange[0].endDate){
-                    // console.log(results.rows[i])
-                    // right here
+                    sellAmount = stockPrice*numOfStock
+                    balance += sellAmount
+                    numOfStock = 0
+                    balance = (balance-50)*0.99843
+                    profit = (balance - stockList[j].amount) / 100
+                    console.log(profit)
+                    console.log("------------------------------------")
+                    profitStockList.push({"name": stockList[j].name, "profit": profit})
                 }
             }
-            // // Check net balance
-            // stockPrice = results.rows[].close //bug logic
-            // sellAmount = stockPrice*numOfStock
-            // balance += sellAmount
-            // numOfStock = 0
-            // balance = (balance-50)*0.99843
-            // profit = (balance - stockList[j].amount) / 100
-            // console.log(profit)
-            // console.log("------------------------------------")
-            // profitStockList.push({"name": stockList[j].name, "profit": profit})
+            
         }
-        // // what date?
-        // d = new Date(results.rows[0].date)
-        // date = d.getUTCFullYear().toString() + '-' + (d.getUTCMonth()+1).toString() + '-' + (d.getUTCDate()+1).toString()
-        // console.log(date)
-        // res.status(200).json(profitStockList)
-        res.status(200).json(results.rows)
+        res.status(200).json(profitStockList)
+        // res.status(200).json(results.rows)
     })
 }
 
