@@ -51,9 +51,9 @@ const getProfitPercent = (req, res) => {
             // console.log(stockList[j].name)
             for(i = 0; i<results.rows.length; i++){
                 if(results.rows[i].symbol == stockList[j].name){
-                    stockPrice = results.rows[i].close
                     date = moment(results.rows[i].date).format('YYYY-MM-DD')
                     if(date != lastDate){
+                        stockPrice = results.rows[i+1].open
                         // buy
                         if(results.rows[i].status == '1.0' && balance > results.rows[i].close && limitedBuy < 3){
                             // stockPrice = results.rows[i].close
@@ -88,6 +88,7 @@ const getProfitPercent = (req, res) => {
                     // stockPrice = results.rows[i].close
                     // date = moment(results.rows[i].date).format('YYYY-MM-DD')
                     else if(date == lastDate){
+                        stockPrice = results.rows[i].open
                         sellAmount = stockPrice*numOfStock
                         fee = sellAmount*0.00157*1.07
                         balance += sellAmount

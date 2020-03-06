@@ -17,7 +17,7 @@ const getSimulatedStock = (req, res) => {
     //                 {"name":"BGRIM","amount":10000}]
     //                 {"name":"TOP","amount":10000},
     //                 {"name":"CPF","amount":10000}]
-    dateRange = [{  beginDate: '2019-8-22', 
+    dateRange = [{  beginDate: '2019-8-22',
                     endDate: '2019-8-29'}]
 
     // all symbol string query
@@ -50,11 +50,11 @@ const getSimulatedStock = (req, res) => {
             stockPrice = 0.0
             for(i = 0; i<results.rows.length; i++){
                 if(results.rows[i].symbol == stockList[j].name){
-                    stockPrice = results.rows[i].close
                     date = moment(results.rows[i].date).format('YYYY-MM-DD')
                     if(date != lastDate){
+                        stockPrice = results.rows[i+1].open
                         // buy
-                        if(results.rows[i].status == '1.0' && balance > results.rows[i].close && limitedBuy < 3){
+                        if(results.rows[i].status == '1.0' && balance > results.rows[i+1].open && limitedBuy < 3){
                             if(limitedBuy < 2){
                                 buyAmount = balance/2.0
                             }else {
@@ -70,13 +70,13 @@ const getSimulatedStock = (req, res) => {
                             record = {
                                 "date":date,
                                 "symbol":results.rows[i].symbol,
-                                "open":results.rows[i].open,
-                                "high":results.rows[i].high,
-                                "low":results.rows[i].low,
-                                "close":results.rows[i].close,
-                                "percentchange":results.rows[i].percentchange,
-                                "volume":results.rows[i].volume,
-                                "money":results.rows[i].money,
+                                // "open":results.rows[i].open,
+                                // "high":results.rows[i].high,
+                                // "low":results.rows[i].low,
+                                // "close":results.rows[i].close,
+                                // "percentchange":results.rows[i].percentchange,
+                                // "volume":results.rows[i].volume,
+                                // "money":results.rows[i].money,
                                 "status":"buy"
                             }
                             historyList.push(record)
@@ -92,19 +92,20 @@ const getSimulatedStock = (req, res) => {
                             record = {
                                 "date":date,
                                 "symbol":results.rows[i].symbol,
-                                "open":results.rows[i].open,
-                                "high":results.rows[i].high,
-                                "low":results.rows[i].low,
-                                "close":results.rows[i].close,
-                                "percentchange":results.rows[i].percentchange,
-                                "volume":results.rows[i].volume,
-                                "money":results.rows[i].money,
+                                // "open":results.rows[i].open,
+                                // "high":results.rows[i].high,
+                                // "low":results.rows[i].low,
+                                // "close":results.rows[i].close,
+                                // "percentchange":results.rows[i].percentchange,
+                                // "volume":results.rows[i].volume,
+                                // "money":results.rows[i].money,
                                 "status":"sell"
                             }
                             historyList.push(record)
                         }
                     }
                     else if(date == lastDate){
+                        stockPrice = results.rows[i].open
                         sellAmount = stockPrice*numOfStock
                         fee = sellAmount*0.00157*1.07
                         balance += sellAmount
@@ -115,14 +116,14 @@ const getSimulatedStock = (req, res) => {
                         record = {
                             "date":date,
                             "symbol":results.rows[i].symbol,
-                            "open":results.rows[i].open,
-                            "high":results.rows[i].high,
-                            "low":results.rows[i].low,
-                            "close":results.rows[i].close,
-                            "percentchange":results.rows[i].percentchange,
-                            "volume":results.rows[i].volume,
-                            "money":results.rows[i].money,
-                            "status":results.rows[i].status + " sell"
+                            // "open":results.rows[i].open,
+                            // "high":results.rows[i].high,
+                            // "low":results.rows[i].low,
+                            // "close":results.rows[i].close,
+                            // "percentchange":results.rows[i].percentchange,
+                            // "volume":results.rows[i].volume,
+                            // "money":results.rows[i].money,
+                            "status":"sell ("+results.rows[i].status+")" 
                         }
                         historyList.push(record)
                     }
