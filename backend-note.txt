@@ -30,7 +30,7 @@ create table TRADE (
     foreign key (symbol) references COMPANY(symbol)
 );
 
-copy trade from 'D:\Project4D_resource\trade-set50.csv' delimiter ',' csv header;
+copy trade from 'D:\Project4D_resource\trade-db.csv' delimiter ',' csv header;
 
 // pool-connections.js for pool connection
 // getStock.js >> show all rows in trade table
@@ -54,3 +54,11 @@ dateRange = [{beginDate: '2019-08-01', endDate: '2019-10-31'}]
 
 // date and time lib
 npm install moment --save
+
+select date,symbol,open,high,low,close,percentChange,volume,money,status from trade_tmp
+where symbol in (
+	select symbol from company where set50 = '1'
+)
+and date = '2020-1-24'
+and status = '1.0'
+order by macd desc;
