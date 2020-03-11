@@ -10,13 +10,13 @@ import App from './components/App';
 class Routes extends Component {
     render() {
       return (
-        <div className="App container">
-            <Switch>
-                {/* <Route path='/about' component={About} />
-                <Route path='/404' component={NotFound} />
-                <Route path='/testAPI' component={TestAPI} /> */}
-                <Route path='/' component={App} />
-            </Switch>
+        <div width ='100%'>
+          <Switch>
+            {/* <Route path='/about' component={About} />
+            <Route path='/404' component={NotFound} />
+            <Route path='/testAPI' component={TestAPI} /> */}
+            <Route path='/' component={App} />
+          </Switch>
         </div>
       )
     }

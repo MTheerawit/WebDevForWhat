@@ -19,9 +19,12 @@ const getOptionsYear = (number, prefix = "") =>
 export default class DropdownDate extends React.Component {
 
   state = {
-    Year: '',
-    Month: '',
-    Day: '',
+    SYear: '',
+    SMonth: '',
+    SDay: '',
+    EYear: '',
+    EMonth: '',
+    EDay: '',
 }
 
 // handleChange = (e, { value }) => this.setState({ value })
@@ -38,30 +41,64 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
             <Form.Field>
               <Dropdown
                 selection
-                name = 'Year'
+                name = 'SYear'
                 options={getOptionsYear(2)}
                 onChange={this.handleChange}
-                placeholder='Year'
+                placeholder='SYear'
                 value={value}
               />
             </Form.Field>
             <Form.Field>
               <Dropdown
                 selection
-                name = 'Month'
+                name = 'SMonth'
                 options={getOptions(12)}
                 onChange={this.handleChange}
-                placeholder='Month'
+                placeholder='SMonth'
                 value={value}
               />
             </Form.Field>
             <Form.Field>
               <Dropdown
                 selection
-                name = 'Day'
+                name = 'SDay'
                 options={getOptions(31)}
                 onChange={this.handleChange}
-                placeholder='Day'
+                placeholder='SDay'
+                value={value}
+              />
+            </Form.Field>
+          </Form>
+        </Grid.Column>
+        <Grid.Column>
+          <Form>
+            <Form.Field>
+              <Dropdown
+                selection
+                name = 'EYear'
+                options={getOptionsYear(2)}
+                onChange={this.handleChange}
+                placeholder='EYear'
+                value={value}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Dropdown
+                selection
+                name = 'EMonth'
+                options={getOptions(12)}
+                onChange={this.handleChange}
+                placeholder='EMonth'
+                value={value}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Dropdown
+                selection
+                name = 'EDay'
+                options={getOptions(31)}
+                onChange={this.handleChange}
+                placeholder='EDay'
                 value={value}
               />
             </Form.Field>
@@ -70,7 +107,7 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
         <Grid.Column>
           <Segment secondary>
             Dropdown values:
-            <pre>{JSON.stringify(this.state, null, 3)}</pre>
+            <pre>{JSON.stringify(this.state, null, 6)}</pre>
           </Segment>
         </Grid.Column>
       </Grid>
