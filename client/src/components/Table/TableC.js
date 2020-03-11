@@ -98,11 +98,9 @@ const columns = [
   }
 
 export default class TableC extends React.Component{
-    render(){
-        return(
-            <div>
-                <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
-            </div>
-        )
-    }
+  render(){
+    return(
+      <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
+    )
+  }
 }
