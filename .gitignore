@@ -1,3 +1,4 @@
 server/node_modules/
 client/node_modules/
 client/src/tmp.js
+client/src/style.css
