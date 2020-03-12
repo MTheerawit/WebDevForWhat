@@ -44,7 +44,7 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
                 name = 'SYear'
                 options={getOptionsYear(2)}
                 onChange={this.handleChange}
-                placeholder='SYear'
+                placeholder='StartYear'
                 value={value}
               />
             </Form.Field>
@@ -54,7 +54,7 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
                 name = 'SMonth'
                 options={getOptions(12)}
                 onChange={this.handleChange}
-                placeholder='SMonth'
+                placeholder='StartMonth'
                 value={value}
               />
             </Form.Field>
@@ -64,7 +64,7 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
                 name = 'SDay'
                 options={getOptions(31)}
                 onChange={this.handleChange}
-                placeholder='SDay'
+                placeholder='StartDay'
                 value={value}
               />
             </Form.Field>
@@ -78,7 +78,7 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
                 name = 'EYear'
                 options={getOptionsYear(2)}
                 onChange={this.handleChange}
-                placeholder='EYear'
+                placeholder='EndYear'
                 value={value}
               />
             </Form.Field>
@@ -88,7 +88,7 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
                 name = 'EMonth'
                 options={getOptions(12)}
                 onChange={this.handleChange}
-                placeholder='EMonth'
+                placeholder='EndMonth'
                 value={value}
               />
             </Form.Field>
@@ -98,7 +98,7 @@ handleChange = (e, { name, value }) => this.setState({ [name]: value })
                 name = 'EDay'
                 options={getOptions(31)}
                 onChange={this.handleChange}
-                placeholder='EDay'
+                placeholder='EndDay'
                 value={value}
               />
             </Form.Field>

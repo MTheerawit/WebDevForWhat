@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AppwithRouter = () => (
     <BrowserRouter>
-        <Routes />
+        <Routes/>
     </BrowserRouter>
 )
 ReactDOM.render(<AppwithRouter />, document.getElementById('root'));
