@@ -9,7 +9,9 @@ export default class BoxinputSearch extends React.Component{
 
     render(){
         return(
-            <input className="boxinput" placeholder="Search..."  onChange={(event)=>{this.BoxInputSearch(event.target.value)}}/>  
+            <div>
+                <input className="boxinput" placeholder="Search..."  onChange={(event)=>{this.BoxInputSearch(event.target.value)}}/>  
+            </div>
         )
     }
 }

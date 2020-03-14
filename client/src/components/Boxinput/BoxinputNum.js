@@ -9,7 +9,9 @@ export default class BoxinputNum extends React.Component{
     
     render(){
         return(
-            <input className="boxinput" placeholder="0"  onChange={(event)=>{this.BoxInputNumber(event.target.value)}}/>    
+            <div>
+                <input className="boxinput" placeholder="0"  onChange={(event)=>{this.BoxInputNumber(event.target.value)}}/>  
+            </div>
         )
     }
 }
