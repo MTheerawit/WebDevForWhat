@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Table, Input } from "semantic-ui-react";
 
 const tmp =({symbol:'ABC',close:10.12,amount:0})
@@ -33,7 +33,7 @@ export default class TableS extends React.Component{
                             defaultValue="0"
                             onChange={(event)=>{this.BoxInputNumber(event.target.value)}}
                         />
-                        </Table.Cell>angle double left
+                        </Table.Cell>
                     </Table.Row>
                     </Table.Body>
 
