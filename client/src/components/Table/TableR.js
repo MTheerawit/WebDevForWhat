@@ -106,17 +106,11 @@ for (let i = 0; i < 10; i++) {
   });
 }
 
-export default class TableC extends React.Component{
+export default class TableR extends React.Component{
   render(){
     return(
       <div>
-        <div>
-          <h1 className = 'fontRecommend' >Recommend <Badge variant="success">Today</Badge></h1>
-        </div>
-        <Title/>
-        <div>
-          <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
-        </div>
+        <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
       </div>
     )
   }
