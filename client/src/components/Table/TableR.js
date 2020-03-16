@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../../node_modules/antd/dist/antd.css';
 import { Table, Tag } from 'antd';
-import './Table.css';
 
 const columns = [
   {

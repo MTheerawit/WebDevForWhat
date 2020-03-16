@@ -1,0 +1,16 @@
+.fontHeader{
+  font-size: 64px;
+  color: floralwhite;
+  padding-left: 20px; 
+  padding-right: 20px;
+  padding: 5px;
+}
+.fontRecommend{
+  font-size: 40px;
+  color: #ffffff;
+
+}
+.fontAny{
+  font-size: 36px;
+  color: #ffffff;
+}

@@ -1,16 +1,16 @@
 import React from 'react';
-import './Header.css';
+import './Badge.css';
 import { Badge } from 'react-bootstrap';
 
-export default class Header extends React.Component{
+export default class SelectSymbol extends React.Component{
   render(){
     return(
       <div>
-        <table className="web-header">
+        <table>
           <tbody>
             <tr>
               <td>
-                <h1 className ="fontHeader"><Badge variant="success">Advice</Badge><Badge variant="danger">Trading</Badge></h1>
+                <h1 className = 'fontAny' ><Badge variant="secondary">Select</Badge><Badge variant="info">Symbol</Badge> </h1>
               </td>
             </tr>
           </tbody>
