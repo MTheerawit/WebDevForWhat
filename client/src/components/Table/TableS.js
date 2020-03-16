@@ -63,10 +63,9 @@ export default class TableS extends React.Component{
                     <Table.Row>
                         <Table.HeaderCell>Total = {tmp.amount}  *ตรงนี้ค่าจะเปลี่ยนตามที่กรอก กุยังทำไม่ได้</Table.HeaderCell>
                         <Table.HeaderCell></Table.HeaderCell>
-                        <Table.HeaderCell>ว่าจะใส่ Button ตรงนี้</Table.HeaderCell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>ยังไม่คิดต่อ อยู่ในช่วงหาโค๊ด555+</Table.Cell>
+                        <Table.HeaderCell>ว่าจะใส่ Button ตรงนี้
+
+                        </Table.HeaderCell>
                     </Table.Row>
                     </Table.Footer>
                 </Table>
