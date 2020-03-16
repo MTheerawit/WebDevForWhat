@@ -1,6 +1,9 @@
 import React from 'react';
 import '../../../node_modules/antd/dist/antd.css';
-import { Table } from 'antd';
+import { Table, Tag } from 'antd';
+import { Badge } from 'react-bootstrap';
+import Title from 'antd/lib/skeleton/Title';
+import './Table.css';
 
 const columns = [
   {
@@ -65,21 +68,28 @@ const columns = [
     key: 'status',
     width: 140,
     fixed: 'right',
-    // render: () => ( <Tag color={color} key={tag}/> )
+    render: status => (
+      <Tag color='geekblue' key={status}>{status}</Tag>
+    )
   },
 ];
 const data = [];
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 10; i++) {
   let tmp =''
+  // let color =''
   if (i%3===0) {
-    // tmp = '1'
+    // tmp = '-1'
     tmp = 'Downward'
+    // color = 'volcano'
+
   }else if(i%3===1){
     // tmp = '0'
     tmp = 'Stable'
+    // color = 'geekblue'
   }else{
-    // tmp = '-1'
+    // tmp = '1'
     tmp = 'Upward'
+    // color = 'green'
   }
   data.push({
     key: i,
@@ -93,7 +103,6 @@ for (let i = 0; i < 20; i++) {
     volume: '145057103',
     money: '777777777.777',
     status: tmp,
-    // status: '0',
   });
 }
 
@@ -101,7 +110,13 @@ export default class TableC extends React.Component{
   render(){
     return(
       <div>
-        <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
+        <div>
+          <h1 className = 'fontRecommend' >Recommend <Badge variant="success">Today</Badge></h1>
+        </div>
+        <Title/>{/*ใส่เว้นวรรคเฉยๆ*/}
+        <div>
+          <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
+        </div>
       </div>
     )
   }

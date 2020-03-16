@@ -8,16 +8,16 @@ import App from './components/App';
 // import TestAPI from './components/TestAPI';
 
 class Routes extends Component {
-    render() {
-      return (
-        <Switch>
-          {/* <Route path='/about' component={About} />
-          <Route path='/404' component={NotFound} />
-          <Route path='/testAPI' component={TestAPI} /> */}
-          <Route path='/' component={App} />
-        </Switch>
-      )
-    }
+  render() {
+    return (
+      <Switch>
+        {/* <Route path='/about' component={About} />
+        <Route path='/404' component={NotFound} />
+        <Route path='/testAPI' component={TestAPI} /> */}
+        <Route path='/' component={App} />
+      </Switch>
+    )
+  }
 }
 
 export default Routes;

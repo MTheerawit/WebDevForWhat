@@ -14,6 +14,5 @@ const AppwithRouter = () => (
         <Header/>
         <Routes/>
     </BrowserRouter>
-
 )
 ReactDOM.render(<AppwithRouter />, document.getElementById('root'));

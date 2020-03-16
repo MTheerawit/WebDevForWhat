@@ -1,13 +1,13 @@
 .fontHeader{
-    font-size: 64px;
-    color: floralwhite;
-    padding-left: 20px; 
-    padding: 5px;
-  }
+  font-size: 64px;
+  color: floralwhite;
+  padding-left: 20px; 
+  padding: 5px;
+}
 
-  .web-header {
-    background-color: #0a2153;
-    display: block;
-    width: 1920;
-    padding: 5px;
-  }
+.web-header {
+  background-color: #0a2153;
+  display: block;
+  width: 1920;
+  padding: 5px;
+}
