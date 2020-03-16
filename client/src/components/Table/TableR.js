@@ -1,8 +1,6 @@
 import React from 'react';
 import '../../../node_modules/antd/dist/antd.css';
 import { Table, Tag } from 'antd';
-import { Badge } from 'react-bootstrap';
-import Title from 'antd/lib/skeleton/Title';
 import './Table.css';
 
 const columns = [
