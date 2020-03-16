@@ -69,7 +69,7 @@ const columns = [
     width: 140,
     fixed: 'right',
     render: status => (
-      <Tag color='geekblue' key={status}>{status}</Tag>
+      <Tag color='gold' key={status}>{status}</Tag>
     )
   },
 ];
@@ -113,7 +113,7 @@ export default class TableC extends React.Component{
         <div>
           <h1 className = 'fontRecommend' >Recommend <Badge variant="success">Today</Badge></h1>
         </div>
-        <Title/>{/*ใส่เว้นวรรคเฉยๆ*/}
+        <Title/>
         <div>
           <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
         </div>

@@ -1,6 +1,13 @@
 .fontRecommend{
-    font-size: 36px;
+    font-size: 32px;
     color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding: 10px;
+}
+.fontSelect{
+    font-size: 32px;
+    color: #3ad6b4;
     padding-left: 10px;
     padding-right: 10px;
     padding: 10px;

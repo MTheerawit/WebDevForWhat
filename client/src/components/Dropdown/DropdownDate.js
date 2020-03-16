@@ -1,5 +1,6 @@
 import React from 'react'
-import {  Grid, Dropdown, Form, Segment } from 'semantic-ui-react'
+// import {  Grid, Dropdown, Form, Segment } from 'semantic-ui-react'
+import {  Grid, Dropdown, Form } from 'semantic-ui-react'
 import _ from "lodash";
 
 const getOptions = (number, prefix = "") =>
@@ -28,7 +29,12 @@ export default class DropdownDate extends React.Component {
   }
 
   // handleChange = (e, { value }) => this.setState({ value })
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  // handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+  handleChange = (e, { name, value }) => {
+    this.setState({ [name]: value })
+    console.log({[name]: value})
+  }
 
   render() {
 
@@ -105,12 +111,12 @@ export default class DropdownDate extends React.Component {
               </Form.Field>
             </Form>
           </Grid.Column>
-          <Grid.Column>
+          {/* <Grid.Column>
             <Segment secondary>
               Dropdown values:
               <pre>{JSON.stringify(this.state, null, 6)}</pre>
             </Segment>
-          </Grid.Column>
+          </Grid.Column> */}
         </Grid>
       </div>
     )
