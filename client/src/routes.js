@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-// import App from './components/App';
 import App from './components/App';
 // import About from './components/About';
 // import NotFound from './components/NotFound';
@@ -15,6 +14,7 @@ class Routes extends Component {
         <Route path='/404' component={NotFound} />
         <Route path='/testAPI' component={TestAPI} /> */}
         <Route path='/' component={App} />
+
       </Switch>
     )
   }

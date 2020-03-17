@@ -4,19 +4,23 @@ import './index.css';
 import { Container } from 'semantic-ui-react';
 import Title from 'antd/lib/skeleton/Title';
 
-import TableR from '../Table/TableR';
-import TableS from '../Table/TableS';
-import ButtonNext from '../Button/ButtonNext';
-import DropdownDate from '../Dropdown/DropdownDate';
-import SelectAndSearch from '../SelectAndSearch/SelectAndSearch'
-
-import Header from '../Badge/Header'
+import Header from '../Badge/Header';
 import RecommendToday from '../Badge/RecommendToday';
+import TableR from '../Table/TableR';
 import ModelPurchase from '../Badge/ModelPurchase';
 import SelectDate from '../Badge/SelectDate';
+import DropdownDate from '../Dropdown/DropdownDate';
 import SelectSymbol from '../Badge/SelectSymbol';
+import SelectAndSearch from '../SelectAndSearch/SelectAndSearch';
 import EnterAmount from '../Badge/EnterAmount';
+import TableS from '../Table/TableS';
+import ButtonNext from '../Button/ButtonNext';
 
+import ModelHistory from '../Badge/ModelHistory';
+import TableHistory from '../Table/TableHistory';
+import ModelResult from '../Badge/ModelResult';
+import TableResult from '../Table/TableResult';
+import ButtonBack from '../Button/ButtonBack';
 
 export default class App extends React.Component{
   render(){
@@ -56,14 +60,9 @@ export default class App extends React.Component{
           <Title/>
           <SelectAndSearch/>
           <Title/>
-        </Container>
-
-        <Title/>
-        <Container textAlign='left'>
-          <Title/>
           <EnterAmount/>
           <Title/>
-          <TableS/>
+          {/* <TableS/> */}
           <Title/>
         </Container>
 
@@ -74,6 +73,33 @@ export default class App extends React.Component{
           <Title/>
         </Container>
         <Title/>
+
+        <Title/>
+        <Container textAlign='center'>
+          <ModelPurchase/>
+        </Container>
+
+        <Title/>
+        <Container textAlign='left'>
+          <Title/>
+          <ModelHistory/>
+          <Title/>
+          <TableHistory/>
+          <Title/>
+          <ModelResult/>
+          <Title/>
+          {/* <TableResult/> */}
+          <Title/>
+        </Container>
+
+        <Title/>
+        <Container textAlign='right'>
+          <Title/>
+          <ButtonBack/>
+          <Title/>
+        </Container>
+        <Title/>
+
       </div>
     );
   }

@@ -4,74 +4,74 @@ import { Table, Tag } from 'antd';
 
 const columns = [
   {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-    width: 105,
-    fixed: 'left',
+  title: 'Date',
+  dataIndex: 'date',
+  key: 'date',
+  width: 105,
+  fixed: 'left',
   },
   {
-    title: 'Symbol',
-    dataIndex: 'symbol',
-    key: 'symbol',
-    width: 110,
-    fixed: 'left',
+  title: 'Symbol',
+  dataIndex: 'symbol',
+  key: 'symbol',
+  width: 110,
+  fixed: 'left',
   },
   {
-    title: 'Open',
-    dataIndex: 'open',
-    key: 'open',
-    width: 70,
+  title: 'Open',
+  dataIndex: 'open',
+  key: 'open',
+  width: 70,
   },
   {
-    title: 'High',
-    dataIndex: 'high',
-    key: 'high',
-    width: 70,
+  title: 'High',
+  dataIndex: 'high',
+  key: 'high',
+  width: 70,
   },
   {
-    title: 'Low',
-    dataIndex: 'low',
-    key: 'low',
-    width: 70,
+  title: 'Low',
+  dataIndex: 'low',
+  key: 'low',
+  width: 70,
   },
   {
-    title: 'Last',
-    dataIndex: 'close',
-    key: 'close',
-    width: 70,
+  title: 'Last',
+  dataIndex: 'close',
+  key: 'close',
+  width: 70,
   },
   {
-    title: 'Change%',
-    dataIndex: 'percentchange',
-    key: 'percentchange',
-    width: 95,
+  title: 'Change%',
+  dataIndex: 'percentchange',
+  key: 'percentchange',
+  width: 95,
   },
   {
-    title: 'TotalVolume(shares)',
-    dataIndex: 'volume',
-    key: 'volume',
-    width: 165,
+  title: 'TotalVolume(shares)',
+  dataIndex: 'volume',
+  key: 'volume',
+  width: 120,
   },
   {
-    title: 'TotalVolume("000 bath)',
-    dataIndex: 'money',
-    key: 'money',
-    width: 185,
+  title: 'TotalVolume("000 bath)',
+  dataIndex: 'money',
+  key: 'money',
+  width: 120,
   },
   {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-    width: 140,
-    fixed: 'right',
-    render: status => (
-      <Tag color='gold' key={status}>{status}</Tag>
+  title: 'Status',
+  dataIndex: 'status',
+  key: 'status',
+  width: 100,
+  fixed: 'right',
+  render: status => (
+    <Tag color='gold' key={status}>{status}</Tag>
     )
   },
 ];
 const data = [];
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 100; i++) {
   let tmp =''
   // let color =''
   if (i%3===0) {
@@ -107,7 +107,7 @@ export default class TableR extends React.Component{
   render(){
     return(
       <div>
-        <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 600 }} />
+        <Table columns={columns} dataSource={data} pagination={{ pageSize: 20 }} scroll={{ x: 1000,y: 600 }} />
       </div>
     )
   }

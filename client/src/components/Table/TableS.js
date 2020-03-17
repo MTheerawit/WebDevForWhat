@@ -6,7 +6,7 @@ export default class TableH extends React.Component{
     render(){
         return(
             <div>
-
+                 
             </div>
         )
     }
