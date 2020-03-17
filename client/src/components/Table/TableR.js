@@ -70,44 +70,59 @@ const columns = [
     )
   },
 ];
-const data = [];
-for (let i = 0; i < 100; i++) {
-  let tmp =''
-  // let color =''
-  if (i%3===0) {
-    // tmp = '-1'
-    tmp = 'Downward'
-    // color = 'volcano'
+// const data = [];
+// for (let i = 0; i < 100; i++) {
+//   let tmp =''
+//   // let color =''
+//   if (i%3===0) {
+//     // tmp = '-1'
+//     tmp = 'Downward'
+//     // color = 'volcano'
 
-  }else if(i%3===1){
-    // tmp = '0'
-    tmp = 'Stable'
-    // color = 'geekblue'
-  }else{
-    // tmp = '1'
-    tmp = 'Upward'
-    // color = 'green'
-  }
-  data.push({
-    key: i,
-    date: '2019-08-15',
-    symbol: 'A123456789',
-    open: '219',
-    high: '219',
-    low: '215',
-    close: '216',
-    percentchange: '-3.57',
-    volume: '145057103',
-    money: '777777777.777',
-    status: tmp,
-  });
-}
+//   }else if(i%3===1){
+//     // tmp = '0'
+//     tmp = 'Stable'
+//     // color = 'geekblue'
+//   }else{
+//     // tmp = '1'
+//     tmp = 'Upward'
+//     // color = 'green'
+//   }
+//   data.push({
+//     // send data here!!!
+//     key: i,
+//     date: '2019-08-15',
+//     symbol: 'A123456789',
+//     open: '219',
+//     high: '219',
+//     low: '215',
+//     close: '216',
+//     percentchange: '-3.57',
+//     volume: '145057103',
+//     money: '777777777.777',
+//     status: tmp,
+//   });
+// }
 
 export default class TableR extends React.Component{
+  state = {
+    data: []
+  }
+  callAPI() {
+    fetch("http://localhost:9000/getRecStock")
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ data: res})
+    })
+    .catch(err => err)
+  }
+  componentDidMount(){
+    this.callAPI()
+  }
   render(){
     return(
       <div>
-        <Table columns={columns} dataSource={data} pagination={{ pageSize: 20 }} scroll={{ x: 1000,y: 600 }} />
+        <Table columns={columns} dataSource={this.state.data} pagination={{ pageSize: 20 }} scroll={{ x: 1000,y: 600 }} />
       </div>
     )
   }

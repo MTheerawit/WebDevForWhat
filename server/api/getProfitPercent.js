@@ -8,17 +8,13 @@ const getProfitPercent = (req, res) => {
     // dateRange = req.params.dateRange
     // dateRange = JSON.parse(decodeURIComponent(dateRange))
 
-    stockList = [   {"name":"GPSC","amount":10000},
-                    {"name":"BEM","amount":10000},
-                    {"name":"BGRIM","amount":10000},
-                    {"name":"CPF","amount":10000},
-                    {"name":"BTS","amount":10000}]
-    // stockList = [   {"name":"BH","amount":10000},
-    //                 {"name":"SCB","amount":10000},
-    //                 {"name":"GLOBAL","amount":10000},
-    //                 {"name":"BEM","amount":10000}]
-    dateRange = [{  beginDate: '2019-8-22', 
-                    endDate: '2019-8-29'}]
+    stockList = [   {"name":"MINT","amount":10000},
+                    {"name":"BTS","amount":10000},
+                    {"name":"VGI","amount":10000},
+                    {"name":"TOP","amount":10000},
+                    {"name":"HMPRO","amount":10000}]
+    dateRange = [{  beginDate: '2019-9-5', 
+                    endDate: '2019-9-12'}]
 
     // all symbol string query
     allStockStr = "("
@@ -31,7 +27,7 @@ const getProfitPercent = (req, res) => {
         }
     }
 
-    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade \
+    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade_tmp \
     where symbol in (select symbol from company where set50 = '1') \
     and " + allStockStr + " \
     and date between '" + dateRange[0].beginDate + "' and '" + dateRange[0].endDate + "';"
@@ -42,12 +38,18 @@ const getProfitPercent = (req, res) => {
 
         // all stock
         profitStockList = []
+        lastBalance = 0.0
+        totalAmount = 0.0
         lastDate = moment(results.rows[results.rows.length-1].date).format('YYYY-MM-DD')
         for(j = 0; j<stockList.length; j++){
             balance = stockList[j].amount
             numOfStock = 0
             limitedBuy = 0
             stockPrice = 0.0
+            //tmp
+            if(stockList[j].name != '-'){
+                totalAmount += balance
+            }
             // console.log(stockList[j].name)
             for(i = 0; i<results.rows.length; i++){
                 if(results.rows[i].symbol == stockList[j].name){
@@ -94,16 +96,25 @@ const getProfitPercent = (req, res) => {
                         balance += sellAmount
                         balance -= fee
                         numOfStock = 0
-                        profit = (balance - stockList[j].amount) / 100
+                        profit = ((balance - stockList[j].amount)/ stockList[j].amount)*100
                         console.log(profit.toFixed(2))
                         // console.log("-------------------")
-                        profitStockList.push({"name": stockList[j].name, "profit": profit})
+                        lastBalance += balance
+                        profitStockList.push({"name": stockList[j].name, "lastBalance": balance.toFixed(2),"profit": profit.toFixed(2)})
                     }
                 }
             }
             
         }
-        res.status(200).json(profitStockList)
+        record = {
+            "beginDate":dateRange[0].beginDate,
+            "endDate":dateRange[0].endDate,
+            "capital":totalAmount,
+            "lastBalance":lastBalance.toFixed(2),
+            "profit": (((lastBalance-totalAmount)/totalAmount)*100).toFixed(2),
+            "stockSummary":profitStockList
+        }
+        res.status(200).json(record)
         // res.status(200).json(results.rows)
     })
 }
