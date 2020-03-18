@@ -8,17 +8,13 @@ const getSimulatedStock = (req, res) => {
     // dateRange = req.params.dateRange
     // dateRange = JSON.parse(decodeURIComponent(dateRange))
     
-    stockList = [   {"name":"GPSC","amount":10000},
-                    {"name":"BEM","amount":10000},
-                    {"name":"BGRIM","amount":10000},
-                    {"name":"CPF","amount":10000},
-                    {"name":"BTS","amount":10000}]
-    // stockList = [   {"name":"HMPRO","amount":10000},
-    //                 {"name":"BGRIM","amount":10000}]
-    //                 {"name":"TOP","amount":10000},
-    //                 {"name":"CPF","amount":10000}]
-    dateRange = [{  beginDate: '2019-8-22',
-                    endDate: '2019-8-29'}]
+    stockList = [   {"name":"SAWAD","amount":10000},
+                    {"name":"EA","amount":10000},
+                    {"name":"MTC","amount":10000},
+                    {"name":"TCAP","amount":10000},
+                    {"name":"-","amount":10000}]
+    dateRange = [{  beginDate: '2020-2-5',
+                    endDate: '2020-2-12'}]
 
     // all symbol string query
     allStockStr = "("
@@ -31,7 +27,7 @@ const getSimulatedStock = (req, res) => {
         }
     }
 
-    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade \
+    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade_tmp \
     where symbol in (select symbol from company where set50 = '1') \
     and " + allStockStr + " \
     and date between '" + dateRange[0].beginDate + "' and '" + dateRange[0].endDate + "';"
@@ -70,13 +66,13 @@ const getSimulatedStock = (req, res) => {
                             record = {
                                 "date":date,
                                 "symbol":results.rows[i].symbol,
-                                // "open":results.rows[i].open,
-                                // "high":results.rows[i].high,
-                                // "low":results.rows[i].low,
-                                // "close":results.rows[i].close,
-                                // "percentchange":results.rows[i].percentchange,
-                                // "volume":results.rows[i].volume,
-                                // "money":results.rows[i].money,
+                                "open":results.rows[i].open,
+                                "high":results.rows[i].high,
+                                "low":results.rows[i].low,
+                                "close":results.rows[i].close,
+                                "percentchange":results.rows[i].percentchange,
+                                "volume":results.rows[i].volume,
+                                "money":results.rows[i].money,
                                 "status":"buy"
                             }
                             historyList.push(record)
@@ -92,13 +88,13 @@ const getSimulatedStock = (req, res) => {
                             record = {
                                 "date":date,
                                 "symbol":results.rows[i].symbol,
-                                // "open":results.rows[i].open,
-                                // "high":results.rows[i].high,
-                                // "low":results.rows[i].low,
-                                // "close":results.rows[i].close,
-                                // "percentchange":results.rows[i].percentchange,
-                                // "volume":results.rows[i].volume,
-                                // "money":results.rows[i].money,
+                                "open":results.rows[i].open,
+                                "high":results.rows[i].high,
+                                "low":results.rows[i].low,
+                                "close":results.rows[i].close,
+                                "percentchange":results.rows[i].percentchange,
+                                "volume":results.rows[i].volume,
+                                "money":results.rows[i].money,
                                 "status":"sell"
                             }
                             historyList.push(record)
@@ -111,18 +107,18 @@ const getSimulatedStock = (req, res) => {
                         balance += sellAmount
                         balance -= fee
                         numOfStock = 0
-                        profit = (balance - stockList[j].amount) / 100
-                        console.log(profit.toFixed(2))
+                        // profit = (balance - stockList[j].amount) / 100
+                        // console.log(profit.toFixed(2))
                         record = {
                             "date":date,
                             "symbol":results.rows[i].symbol,
-                            // "open":results.rows[i].open,
-                            // "high":results.rows[i].high,
-                            // "low":results.rows[i].low,
-                            // "close":results.rows[i].close,
-                            // "percentchange":results.rows[i].percentchange,
-                            // "volume":results.rows[i].volume,
-                            // "money":results.rows[i].money,
+                            "open":results.rows[i].open,
+                            "high":results.rows[i].high,
+                            "low":results.rows[i].low,
+                            "close":results.rows[i].close,
+                            "percentchange":results.rows[i].percentchange,
+                            "volume":results.rows[i].volume,
+                            "money":results.rows[i].money,
                             "status":"sell ("+results.rows[i].status+")" 
                         }
                         historyList.push(record)
