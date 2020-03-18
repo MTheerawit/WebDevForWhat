@@ -107,7 +107,7 @@ export default class TableR extends React.Component{
   render(){
     return(
       <div>
-        <Table columns={columns} dataSource={data} pagination={{ pageSize: 20 }} scroll={{ x: 1000,y: 600 }} />
+        <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} scroll={{ x: 1000,y: 600 }} />
       </div>
     )
   }

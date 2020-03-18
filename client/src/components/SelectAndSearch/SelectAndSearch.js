@@ -4,9 +4,9 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 
-const children = [];
+const data = [];
 for (let i = 10; i < 36; i++) {
-  children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+  data.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
 }
 
 export default class SelectAndSearch extends React.Component{
@@ -24,7 +24,7 @@ export default class SelectAndSearch extends React.Component{
           placeholder="Select or Search" 
           onChange={this.handleChange} 
           tokenSeparators={[',']}>
-          {children}
+          {data}
         </Select>
       </div>
     )

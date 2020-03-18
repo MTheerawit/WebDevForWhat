@@ -13,7 +13,7 @@ import DropdownDate from '../Dropdown/DropdownDate';
 import SelectSymbol from '../Badge/SelectSymbol';
 import SelectAndSearch from '../SelectAndSearch/SelectAndSearch';
 import EnterAmount from '../Badge/EnterAmount';
-import TableS from '../Table/TableS';
+// import TableS from '../Table/TableS';
 import ButtonNext from '../Button/ButtonNext';
 
 import ModelHistory from '../Badge/ModelHistory';
@@ -88,7 +88,7 @@ export default class App extends React.Component{
           <Title/>
           <ModelResult/>
           <Title/>
-          {/* <TableResult/> */}
+          <TableResult/>
           <Title/>
         </Container>
 
