@@ -13,13 +13,14 @@ import DropdownDate from '../Dropdown/DropdownDate';
 import SelectSymbol from '../Badge/SelectSymbol';
 import SelectAndSearch from '../SelectAndSearch/SelectAndSearch';
 import EnterAmount from '../Badge/EnterAmount';
-// import TableS from '../Table/TableS';
+import TableS from '../Table/TableS';
 import ButtonNext from '../Button/ButtonNext';
 
+import TableM from '../Table/TableM';
 import ModelHistory from '../Badge/ModelHistory';
-import TableHistory from '../Table/TableHistory';
+import TableHistory from '../../tmp/TableHistory';
 import ModelResult from '../Badge/ModelResult';
-import TableResult from '../Table/TableResult';
+import TableResult from '../../tmp/TableResult';
 import ButtonBack from '../Button/ButtonBack';
 
 export default class App extends React.Component{
@@ -62,24 +63,24 @@ export default class App extends React.Component{
           <Title/>
           <EnterAmount/>
           <Title/>
-          {/* <TableS/> */}
+          <TableS/>
           <Title/>
         </Container>
 
-        <Title/>
+        {/* <Title/>
         <Container textAlign='right'>
           <Title/>
           <ButtonNext/>
           <Title/>
         </Container>
-        <Title/>
+        <Title/> */}
 
         <Title/>
         <Container textAlign='center'>
           <ModelPurchase/>
         </Container>
 
-        <Title/>
+        {/* <Title/>
         <Container textAlign='left'>
           <Title/>
           <ModelHistory/>
@@ -90,15 +91,22 @@ export default class App extends React.Component{
           <Title/>
           <TableResult/>
           <Title/>
-        </Container>
+        </Container> */}
 
         <Title/>
+        <Container textAlign='left'>
+          <Title/>
+          <TableM/>
+          <Title/>
+        </Container>
+
+        {/* <Title/>
         <Container textAlign='right'>
           <Title/>
           <ButtonBack/>
           <Title/>
         </Container>
-        <Title/>
+        <Title/> */}
 
       </div>
     );
