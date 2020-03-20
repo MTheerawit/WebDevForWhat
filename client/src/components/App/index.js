@@ -1,29 +1,27 @@
 import React from 'react';
 import './index.css';
 
-import { Container } from 'semantic-ui-react';
 import Title from 'antd/lib/skeleton/Title';
 
+import { Container } from 'semantic-ui-react';
+import { Button } from "semantic-ui-react";
+
 import Header from '../Badge/Header';
-import RecommendToday from '../Badge/RecommendToday';
 import TableR from '../Table/TableR';
 import ModelPurchase from '../Badge/ModelPurchase';
-import SelectDate from '../Badge/SelectDate';
-import DropdownDate from '../Dropdown/DropdownDate';
-import SelectSymbol from '../Badge/SelectSymbol';
-import SelectAndSearch from '../SelectAndSearch/SelectAndSearch';
-import EnterAmount from '../Badge/EnterAmount';
 import TableS from '../Table/TableS';
-import ButtonNext from '../Button/ButtonNext';
 
 import TableM from '../Table/TableM';
-import ModelHistory from '../Badge/ModelHistory';
-import TableHistory from '../../tmp/TableHistory';
-import ModelResult from '../Badge/ModelResult';
-import TableResult from '../../tmp/TableResult';
-import ButtonBack from '../Button/ButtonBack';
 
 export default class App extends React.Component{
+
+  ClickBack = ()=>{
+    console.log('cClick  : Back');
+  }
+  ClickNext = ()=>{
+    console.log('cClick  : Next');
+  }
+
   render(){
     return (
       <div className="web-background">
@@ -33,8 +31,6 @@ export default class App extends React.Component{
 
         <Title/>
         <Container textAlign='left'>
-          <Title/>
-          <RecommendToday/>
           <Title/>
           <TableR/>
           <Title/>
@@ -48,50 +44,22 @@ export default class App extends React.Component{
         <Title/>
         <Container textAlign='left'>
           <Title/>
-          <SelectDate/>
-          <Title/>
-          <DropdownDate/>
-          <Title/>
-        </Container>
-
-        <Title/>
-        <Container textAlign='left'>
-          <Title/>
-          <SelectSymbol/>
-          <Title/>
-          <SelectAndSearch/>
-          <Title/>
-          <EnterAmount/>
-          <Title/>
           <TableS/>
           <Title/>
         </Container>
 
-        {/* <Title/>
+        <Title/>
         <Container textAlign='right'>
           <Title/>
-          <ButtonNext/>
+          <Button inverted color="teal" onClick={this.ClickNext} >Next</Button> 
           <Title/>
         </Container>
-        <Title/> */}
+        <Title/>
 
         <Title/>
         <Container textAlign='center'>
           <ModelPurchase/>
         </Container>
-
-        {/* <Title/>
-        <Container textAlign='left'>
-          <Title/>
-          <ModelHistory/>
-          <Title/>
-          <TableHistory/>
-          <Title/>
-          <ModelResult/>
-          <Title/>
-          <TableResult/>
-          <Title/>
-        </Container> */}
 
         <Title/>
         <Container textAlign='left'>
@@ -100,13 +68,13 @@ export default class App extends React.Component{
           <Title/>
         </Container>
 
-        {/* <Title/>
+        <Title/>
         <Container textAlign='right'>
           <Title/>
-          <ButtonBack/>
+          <Button inverted color="blue" onClick={this.ClickBack} >Back</Button>  
           <Title/>
         </Container>
-        <Title/> */}
+        <Title/>
 
       </div>
     );

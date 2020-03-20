@@ -2,6 +2,9 @@ import React from 'react';
 import '../../../node_modules/antd/dist/antd.css';
 import { Table, Tag } from 'antd';
 
+import RecommendToday from '../Badge/RecommendToday';
+import Title from 'antd/lib/skeleton/Title';
+
 const columns = [
   {
   title: 'Date',
@@ -89,7 +92,11 @@ export default class TableR extends React.Component{
   render(){
     return(
       <div>
+        <Title/>
+        <RecommendToday/>
+        <Title/>
         <Table columns={columns} dataSource={this.state.data} pagination={{ pageSize: 10 }} scroll={{ x: 1000,y: 600 }} />
+        <Title/>
       </div>
     )
   }
