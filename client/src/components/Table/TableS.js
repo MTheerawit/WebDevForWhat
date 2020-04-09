@@ -148,7 +148,7 @@ export default class TableH extends React.Component{
                 <Title/>
                 <EnterAmount/>
                 <Title/>
-
+                
                 <Title/>
             </div>
         )
