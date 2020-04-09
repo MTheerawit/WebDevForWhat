@@ -80,7 +80,6 @@ const columnsResult = [
   title: 'Symbol',
   dataIndex: 'symbol',
   key: 'symbol',
-  fixed: 'left',
   },
   {
   title: 'LastBalance',

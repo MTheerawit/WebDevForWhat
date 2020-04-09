@@ -31,7 +31,7 @@ const data = [];
     data.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
   }
 
-export default class TableH extends React.Component{
+export default class TableS extends React.Component{
 
     state = {
         SYear: '',
