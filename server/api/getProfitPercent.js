@@ -8,13 +8,13 @@ const getProfitPercent = (req, res) => {
     // dateRange = req.params.dateRange
     // dateRange = JSON.parse(decodeURIComponent(dateRange))
 
-    stockList = [   {"name":"MINT","amount":10000},
-                    {"name":"BTS","amount":10000},
-                    {"name":"VGI","amount":10000},
-                    {"name":"TOP","amount":10000},
+    stockList = [   {"name":"BTS","amount":10000},
+                    {"name":"BEM","amount":10000},
+                    {"name":"DTAC","amount":10000},
+                    {"name":"BGRIM","amount":10000},
                     {"name":"HMPRO","amount":10000}]
-    dateRange = [{  beginDate: '2019-9-5', 
-                    endDate: '2019-9-12'}]
+    dateRange = [{  beginDate: '2019-8-22', 
+                    endDate: '2020-2-6'}]
 
     // all symbol string query
     allStockStr = "("
@@ -27,7 +27,7 @@ const getProfitPercent = (req, res) => {
         }
     }
 
-    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade_tmp \
+    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade2 \
     where symbol in (select symbol from company where set50 = '1') \
     and " + allStockStr + " \
     and date between '" + dateRange[0].beginDate + "' and '" + dateRange[0].endDate + "';"
@@ -74,16 +74,12 @@ const getProfitPercent = (req, res) => {
                         }
                         // sell
                         else if(results.rows[i].status == '-1.0' && numOfStock != 0){
-                            // balance = balance
-                            // stockPrice = results.rows[i].close
-                            // if(numOfStock != 0){ ^^^
                             sellAmount = stockPrice*numOfStock
                             fee = sellAmount*0.00157*1.07
                             balance += sellAmount
                             balance -= fee
                             numOfStock = 0
                             limitedBuy = 0
-                            // }
                         }
                     }
                     

@@ -78,8 +78,8 @@ const columnsHistory = [
 const columnsResult = [
   {
   title: 'Symbol',
-  dataIndex: 'symbol',
-  key: 'symbol',
+  dataIndex: 'name',
+  key: 'name',
   },
   {
   title: 'LastBalance',
@@ -96,38 +96,19 @@ const columnsResult = [
 export default class TableM extends React.Component{
   state = {
     dataHistory: [],
-    // dataResult: [],
-    dataResult: [
-      {
-        key: '1',
-        symbol:'AB1',
-        lastBalance:'10000',
-        profit:'10.12'
-      },
-      {
-        key: '2',
-        symbol:'AB2',
-        lastBalance:'800',
-        profit:'11.12'
-      },
-      {
-        key: '3',
-        symbol:'AB3',
-        lastBalance:'9000',
-        profit:'-10.12'
-      },
-    ],
+    dataResult: [],
   }
-  callAPI() {
-    fetch("http://localhost:9000/getRecStock")
+  getSimulatedStock() {
+    fetch("http://localhost:9000/getSimulatedStock")
     .then(res => res.json())
     .then(res => {
-      this.setState({ dataHistory: res})
+      this.setState({ dataHistory: res.history })
+      this.setState({ dataResult: res.stockSummary })
     })
     .catch(err => err)
   }
   componentDidMount(){
-    this.callAPI()
+    this.getSimulatedStock()
   }
   render(){
     return(

@@ -8,13 +8,13 @@ const getSimulatedStock = (req, res) => {
     // dateRange = req.params.dateRange
     // dateRange = JSON.parse(decodeURIComponent(dateRange))
     
-    stockList = [   {"name":"SAWAD","amount":10000},
-                    {"name":"EA","amount":10000},
-                    {"name":"MTC","amount":10000},
-                    {"name":"TCAP","amount":10000},
-                    {"name":"-","amount":10000}]
-    dateRange = [{  beginDate: '2020-2-5',
-                    endDate: '2020-2-12'}]
+    stockList = [   {"name":"BTS","amount":10000},
+                    {"name":"BEM","amount":10000},
+                    {"name":"DTAC","amount":10000},
+                    {"name":"BGRIM","amount":10000},
+                    {"name":"HMPRO","amount":10000}]
+    dateRange = [{  beginDate: '2019-8-22', 
+                    endDate: '2020-2-6'}]
 
     // all symbol string query
     allStockStr = "("
@@ -36,7 +36,11 @@ const getSimulatedStock = (req, res) => {
             throw err
         }
 
-        // all stock
+        // profit list
+        profitStockList = []
+        lastBalance = 0.0
+        totalAmount = 0.0
+        // history list
         historyList = []
         lastDate = moment(results.rows[results.rows.length-1].date).format('YYYY-MM-DD')
         for(j = 0; j<stockList.length; j++){
@@ -107,8 +111,6 @@ const getSimulatedStock = (req, res) => {
                         balance += sellAmount
                         balance -= fee
                         numOfStock = 0
-                        // profit = (balance - stockList[j].amount) / 100
-                        // console.log(profit.toFixed(2))
                         record = {
                             "date":date,
                             "symbol":results.rows[i].symbol,
@@ -122,11 +124,25 @@ const getSimulatedStock = (req, res) => {
                             "status":"sell ("+results.rows[i].status+")" 
                         }
                         historyList.push(record)
+
+                        profit = ((balance - stockList[j].amount)/ stockList[j].amount)*100
+                        console.log(profit.toFixed(2))
+                        lastBalance += balance
+                        profitStockList.push({"name": stockList[j].name, "lastBalance": balance.toFixed(2),"profit": profit.toFixed(2)})
                     }
                 }
             }
-        }    
-        res.status(200).json(historyList)
+        }
+        record = {
+            "beginDate":dateRange[0].beginDate,
+            "endDate":dateRange[0].endDate,
+            "capital":totalAmount,
+            "lastBalance":lastBalance.toFixed(2),
+            "profit": (((lastBalance-totalAmount)/totalAmount)*100).toFixed(2),
+            "stockSummary":profitStockList,
+            "history": historyList
+        }
+        res.status(200).json(record)
         // res.status(200).json(results.rows)
     })
 }
