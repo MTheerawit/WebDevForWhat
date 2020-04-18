@@ -1,35 +1,34 @@
 import React from 'react';
 
-import {  Grid, Dropdown, Form } from 'semantic-ui-react'
+import {  Grid, Dropdown, Form} from 'semantic-ui-react'
 import _ from "lodash";
 
 import 'antd/dist/antd.css';
-import { Select } from 'antd';
+import { Select, InputNumber} from 'antd';
 
 import Title from 'antd/lib/skeleton/Title';
 import SelectDate from '../Badge/SelectDate';
-import SelectSymbol from '../Badge/SelectSymbol';
-import EnterAmount from '../Badge/EnterAmount';
+import SelectSymbol_EnterAmount from '../Badge/SelectSymbol_EnterAmount';
 
 const getOptions = (number, prefix = "") =>
-  _.times(number, index => ({
-    key: index,
-    text: `${prefix}${index + 1}`,
-    value: index+1
-  }));
+    _.times(number, index => ({
+        key: index,
+        text: `${prefix}${index + 1}`,
+        value: index+1
+    }));
 const getOptionsYear = (number, prefix = "") =>
-  _.times(number, index => ({
-    key: index,
-    text: `${prefix}${index + 2019}`,
-    value: index+2019
-  }));
+    _.times(number, index => ({
+         key: index,
+        text: `${prefix}${index + 2019}`,
+        value: index+2019
+    }));
 
 const { Option } = Select;
 
-const data = [];
-  for (let i = 10; i < 36; i++) {
-    data.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-  }
+const dataSymbol = [];
+for (let i = 10; i < 36; i++) {
+    dataSymbol.push(<Option key={i}>{'A' + i}</Option>);
+}
 
 export default class TableS extends React.Component{
 
@@ -40,6 +39,9 @@ export default class TableS extends React.Component{
         EYear: '',
         EMonth: '',
         EDay: '',
+        // dataSymbol: [],
+        symbol_1: undefined,
+        symbol_1_A: undefined,
     }
 
     handleChangeDate = (e, { name, value }) => {
@@ -47,13 +49,31 @@ export default class TableS extends React.Component{
         console.log({[name]: value})
     }
 
-    handleChangeSearch=(value)=>{
+    handleChangeSelected=(value)=>{
         console.log(`selected ${value}`);
+    }
+
+    handleSearch = (value) => {
+        this.setState({ data: [] });
+        console.log(`Search ${value}`);
+    };
+    
+    handleChange = (value) => {
+        this.setState({ symbol_1});
+        console.log(`selected ${value}`);
+    };
+
+    InputNumber = (value)=>{
+        this.setState({ symbol_1_A});
+        console.log('inputnum : ', value);
     }
 
     render(){
 
         const { value } = this.state
+        // const options = this.state.data.map(d => (
+        //     <Option key={d.value}>{d.text}</Option>
+        // ));
 
         return(
             <div>
@@ -64,91 +84,136 @@ export default class TableS extends React.Component{
                 <Grid columns='equal'>
                     <Grid.Column>
                         <Form>
-                        <Form.Field>
-                            <Dropdown
-                            selection
-                            name = 'SYear'
-                            options={getOptionsYear(2)}
-                            onChange={this.handleChangeDate }
-                            placeholder='StartYear'
-                            value={value}
-                            />
-                        </Form.Field>
-                        <Form.Field>
-                            <Dropdown
-                            selection
-                            name = 'SMonth'
-                            options={getOptions(12)}
-                            onChange={this.handleChangeDate }
-                            placeholder='StartMonth'
-                            value={value}
-                            />
-                        </Form.Field>
-                        <Form.Field>
-                            <Dropdown
-                            selection
-                            name = 'SDay'
-                            options={getOptions(31)}
-                            onChange={this.handleChangeDate }
-                            placeholder='StartDay'
-                            value={value}
-                            />
-                        </Form.Field>
+                            <Form.Field>
+                                <Dropdown
+                                selection
+                                name = 'SYear'
+                                options={getOptionsYear(2)}
+                                onChange={this.handleChangeDate }
+                                placeholder='StartYear'
+                                value={value}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown
+                                selection
+                                name = 'SMonth'
+                                options={getOptions(12)}
+                                onChange={this.handleChangeDate }
+                                placeholder='StartMonth'
+                                value={value}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown
+                                selection
+                                name = 'SDay'
+                                options={getOptions(31)}
+                                onChange={this.handleChangeDate }
+                                placeholder='StartDay'
+                                value={value}
+                                />
+                            </Form.Field>
                         </Form>
                     </Grid.Column>
                     <Grid.Column>
                         <Form>
-                        <Form.Field>
-                            <Dropdown
-                            selection
-                            name = 'EYear'
-                            options={getOptionsYear(2)}
-                            onChange={this.handleChangeDate }
-                            placeholder='EndYear'
-                            value={value}
-                            />
-                        </Form.Field>
-                        <Form.Field>
-                            <Dropdown
-                            selection
-                            name = 'EMonth'
-                            options={getOptions(12)}
-                            onChange={this.handleChangeDate }
-                            placeholder='EndMonth'
-                            value={value}
-                            />
-                        </Form.Field>
-                        <Form.Field>
-                            <Dropdown
-                            selection
-                            name = 'EDay'
-                            options={getOptions(31)}
-                            onChange={this.handleChangeDate }
-                            placeholder='EndDay'
-                            value={value}
-                            />
-                        </Form.Field>
+                            <Form.Field>
+                                <Dropdown
+                                selection
+                                name = 'EYear'
+                                options={getOptionsYear(2)}
+                                onChange={this.handleChangeDate }
+                                placeholder='EndYear'
+                                value={value}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown
+                                selection
+                                name = 'EMonth'
+                                options={getOptions(12)}
+                                onChange={this.handleChangeDate }
+                                placeholder='EndMonth'
+                                value={value}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown
+                                selection
+                                name = 'EDay'
+                                options={getOptions(31)}
+                                onChange={this.handleChangeDate }
+                                placeholder='EndDay'
+                                value={value}
+                                />
+                            </Form.Field>
                         </Form>
                     </Grid.Column>
                 </Grid>
 
                 <Title/>
-                <SelectSymbol/>
+                <SelectSymbol_EnterAmount/>
                 <Title/>
-                
-                <Select 
-                mode="tags" 
-                style={{ width: '100%' }}
-                placeholder="Select or Search" 
-                onChange={this.handleChangeSearch} 
-                tokenSeparators={[',']}>
-                {data}
-                </Select>
 
                 <Title/>
-                <EnterAmount/>
+                <Select
+                    showSearch
+                    name = 'symbol_1'
+                    value={this.state.symbol_1}
+                    style={{ width: 300 }}
+                    placeholder="Select symbol"
+                    optionFilterProp="dataSymbol"
+                    defaultActiveFirstOption={false}
+                    showArrow={false}
+                    filterOption={false}
+                    onSearch={this.handleSearch}
+                    onChange={this.handleChange}
+                    notFoundContent={null}
+                >
+                    {dataSymbol}
+                </Select>
+                <InputNumber min={0} max={1000000} defaultValue={this.state.symbol_1_A} onChange={this.InputNumber} style={{ width: 200 }} name = 'symbol_1_A'/>
                 <Title/>
-                
+
+                <Title/>
+                <Select
+                    showSearch
+                    value={this.state.symbol_2}
+                    style={{ width: 300 }}
+                    placeholder="Select symbol"
+                    optionFilterProp="dataSymbol"
+                    defaultActiveFirstOption={false}
+                    showArrow={false}
+                    filterOption={false}
+                    onSearch={this.handleSearch}
+                    onChange={this.handleChange}
+                    notFoundContent={null}
+                >
+                    {dataSymbol}
+                </Select>
+                <InputNumber min={0} max={1000000} defaultValue={this.state.symbol_2_A} onChange={this.InputNumber} style={{ width: 200 }}/>
+                <Title/>
+
+                <Title/>
+                <Select
+                    showSearch
+                    value={this.state.symbol_3}
+                    style={{ width: 300 }}
+                    placeholder="Select symbol"
+                    optionFilterProp="dataSymbol"
+                    defaultActiveFirstOption={false}
+                    showArrow={false}
+                    filterOption={false}
+                    onSearch={this.handleSearch}
+                    onChange={this.handleChange}
+                    notFoundContent={null}
+                >
+                    {dataSymbol}
+                </Select>
+                <InputNumber min={0} max={1000000} defaultValue={this.state.symbol_1_3} onChange={this.InputNumber} style={{ width: 200 }}/>
+                <Title/>
+
                 <Title/>
             </div>
         )
