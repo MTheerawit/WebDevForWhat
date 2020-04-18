@@ -26,10 +26,11 @@ create table TRADE (
     macd float(24),
     rsi float(24),
     status varchar(4),
-    primary key(date, symbol),
-    foreign key (symbol) references COMPANY(symbol)
+    primary key(date, symbol)
+--    foreign key (symbol) references COMPANY(symbol)
 );
 
+copy company from 'D:\Project4D_resource\company-db.csv' delimiter ',' csv header;
 copy trade from 'D:\Project4D_resource\trade-db.csv' delimiter ',' csv header;
 
 // pool-connections.js for pool connection
