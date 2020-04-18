@@ -40,8 +40,7 @@ export default class TableS extends React.Component{
         EMonth: '',
         EDay: '',
         // dataSymbol: [],
-        symbol_1: undefined,
-        symbol_1_A: undefined,
+        value: undefined
     }
 
     handleChangeDate = (e, { name, value }) => {
@@ -59,12 +58,11 @@ export default class TableS extends React.Component{
     };
     
     handleChange = (value) => {
-        this.setState({ symbol_1});
+        this.setState({ value });
         console.log(`selected ${value}`);
     };
 
     InputNumber = (value)=>{
-        this.setState({ symbol_1_A});
         console.log('inputnum : ', value);
     }
 
@@ -159,8 +157,7 @@ export default class TableS extends React.Component{
                 <Title/>
                 <Select
                     showSearch
-                    name = 'symbol_1'
-                    value={this.state.symbol_1}
+                    value={this.state.value}
                     style={{ width: 300 }}
                     placeholder="Select symbol"
                     optionFilterProp="dataSymbol"
@@ -173,45 +170,7 @@ export default class TableS extends React.Component{
                 >
                     {dataSymbol}
                 </Select>
-                <InputNumber min={0} max={1000000} defaultValue={this.state.symbol_1_A} onChange={this.InputNumber} style={{ width: 200 }} name = 'symbol_1_A'/>
-                <Title/>
-
-                <Title/>
-                <Select
-                    showSearch
-                    value={this.state.symbol_2}
-                    style={{ width: 300 }}
-                    placeholder="Select symbol"
-                    optionFilterProp="dataSymbol"
-                    defaultActiveFirstOption={false}
-                    showArrow={false}
-                    filterOption={false}
-                    onSearch={this.handleSearch}
-                    onChange={this.handleChange}
-                    notFoundContent={null}
-                >
-                    {dataSymbol}
-                </Select>
-                <InputNumber min={0} max={1000000} defaultValue={this.state.symbol_2_A} onChange={this.InputNumber} style={{ width: 200 }}/>
-                <Title/>
-
-                <Title/>
-                <Select
-                    showSearch
-                    value={this.state.symbol_3}
-                    style={{ width: 300 }}
-                    placeholder="Select symbol"
-                    optionFilterProp="dataSymbol"
-                    defaultActiveFirstOption={false}
-                    showArrow={false}
-                    filterOption={false}
-                    onSearch={this.handleSearch}
-                    onChange={this.handleChange}
-                    notFoundContent={null}
-                >
-                    {dataSymbol}
-                </Select>
-                <InputNumber min={0} max={1000000} defaultValue={this.state.symbol_1_3} onChange={this.InputNumber} style={{ width: 200 }}/>
+                <InputNumber min={0} max={1000000} defaultValue={this.state.value} onChange={this.InputNumber} />
                 <Title/>
 
                 <Title/>
