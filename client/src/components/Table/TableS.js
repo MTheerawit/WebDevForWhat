@@ -18,7 +18,7 @@ const getOptions = (number, prefix = "") =>
     }));
 const getOptionsYear = (number, prefix = "") =>
     _.times(number, index => ({
-         key: index,
+        key: index,
         text: `${prefix}${index + 2019}`,
         value: index+2019
     }));
