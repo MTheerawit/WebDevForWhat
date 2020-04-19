@@ -1,16 +1,19 @@
 import React from 'react';
 
-import {  Grid, Dropdown, Form} from 'semantic-ui-react'
+import '../../../node_modules/antd/dist/antd.css';
+
+import {  Grid, Dropdown, Form ,Container,Segment,Button } from 'semantic-ui-react'
 import _ from "lodash";
 
 import 'antd/dist/antd.css';
-import { Select, InputNumber } from 'antd';
+import { Table, Tag, Select, InputNumber } from 'antd';
 
 import Title from 'antd/lib/skeleton/Title';
 import SelectDate from '../Badge/SelectDate';
 import SelectSymbol_EnterAmount from '../Badge/SelectSymbol_EnterAmount';
 
-import { Container,Segment,Button } from 'semantic-ui-react';
+import ModelHistory from '../Badge/ModelHistory';
+import ModelResult from '../Badge/ModelResult';
 
 // const filterOption = (input, option) => {
 //     if (select.includes(option.children.toLowerCase())) {
@@ -18,6 +21,93 @@ import { Container,Segment,Button } from 'semantic-ui-react';
 //     }
 //     return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
 // };
+const columnsHistory = [
+{
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date',
+    width: 105,
+    fixed: 'left',
+},
+{
+    title: 'Symbol',
+    dataIndex: 'symbol',
+    key: 'symbol',
+    width: 110,
+    fixed: 'left',
+},
+{
+    title: 'Open',
+    dataIndex: 'open',
+    key: 'open',
+    width: 70,
+},
+{
+    title: 'High',
+    dataIndex: 'high',
+    key: 'high',
+    width: 70,
+},
+{
+    title: 'Low',
+    dataIndex: 'low',
+    key: 'low',
+    width: 70,
+},
+{
+    title: 'Last',
+    dataIndex: 'close',
+    key: 'close',
+    width: 70,
+},
+{
+    title: 'Change%',
+    dataIndex: 'percentchange',
+    key: 'percentchange',
+    width: 95,
+},
+{
+    title: 'TotalVolume(shares)',
+    dataIndex: 'volume',
+    key: 'volume',
+    width: 155,
+},
+{
+    title: 'TotalVolume("000 bath)',
+    dataIndex: 'money',
+    key: 'money',
+    width: 185,
+},
+{
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    width: 95,
+    fixed: 'right',
+    render: status => (
+        <Tag color='gold' key={status}>{status}</Tag>
+        )
+},
+];
+
+const columnsResult = [
+{
+title: 'Symbol',
+dataIndex: 'name',
+key: 'name',
+},
+{
+title: 'LastBalance',
+dataIndex: 'lastBalance',
+key: 'lastBalance',
+},
+{
+title: 'Profit',
+dataIndex: 'profit',
+key: 'profit',
+},
+  ];
+  
 
 export default class TableS extends React.Component{
 
@@ -44,6 +134,8 @@ export default class TableS extends React.Component{
         Input_S3:'',
         Input_S4:'',
         Input_S5:'',
+        dataHistory: [],
+        dataResult: [],
     }
 
     ClickNext = ()=>{
@@ -180,6 +272,18 @@ export default class TableS extends React.Component{
         console.log(this.state.Input_S5)
     };
     // -------------------------------------------------------
+    getSimulatedStock() {
+        fetch("http://localhost:9000/getSimulatedStock")
+        .then(res => res.json())
+        .then(res => {
+          this.setState({ dataHistory: res.history })
+          this.setState({ dataResult: res.stockSummary })
+        })
+        .catch(err => err)
+    }
+    componentDidMount(){
+    this.getSimulatedStock()
+    }
 
     render(){
 
@@ -289,7 +393,7 @@ export default class TableS extends React.Component{
                         </Button>
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 250 }}
                             placeholder="Select a symbol"
                             optionFilterProp="children"
                             onChange={this.onChange_S1}
@@ -318,7 +422,7 @@ export default class TableS extends React.Component{
                         </Button>
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 250 }}
                             placeholder="Select a symbol"
                             optionFilterProp="children"
                             onChange={this.onChange_S2}
@@ -347,7 +451,7 @@ export default class TableS extends React.Component{
                         </Button>
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 250 }}
                             placeholder="Select a symbol"
                             optionFilterProp="children"
                             onChange={this.onChange_S3}
@@ -376,7 +480,7 @@ export default class TableS extends React.Component{
                         </Button>
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 250 }}
                             placeholder="Select a symbol"
                             optionFilterProp="children"
                             onChange={this.onChange_S4}
@@ -405,7 +509,7 @@ export default class TableS extends React.Component{
                         </Button>
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 250 }}
                             placeholder="Select a symbol"
                             optionFilterProp="children"
                             onChange={this.onChange_S5}
@@ -432,6 +536,7 @@ export default class TableS extends React.Component{
                     </Grid.Column>
                     <Grid.Column>
                         <Segment secondary>
+                            select
                             <pre>Symbol 1 : {JSON.stringify(this.state.Symbol_S1, null, 6)} Amouth : {JSON.stringify(this.state.Input_S1, null, 6)}</pre>
                             <pre>Symbol 2 : {JSON.stringify(this.state.Symbol_S2, null, 6)} Amouth : {JSON.stringify(this.state.Input_S2, null, 6)}</pre>
                             <pre>Symbol 3 : {JSON.stringify(this.state.Symbol_S3, null, 6)} Amouth : {JSON.stringify(this.state.Input_S3, null, 6)}</pre>
@@ -449,6 +554,25 @@ export default class TableS extends React.Component{
                 </Container>
                 <Title/>
 
+                <Title/>
+                <ModelHistory/>
+                <Title/>
+                <Table 
+                    columns={columnsHistory} 
+                    dataSource={this.state.dataHistory} 
+                    pagination={{ pageSize: 10 }} 
+                    scroll={{ x: 1000,y: 600 }} 
+                />
+                <Title/>
+                <Title/>
+                <ModelResult/>
+                <Title/>
+                <Table 
+                    columns={columnsResult} 
+                    dataSource={this.state.dataResult} 
+                    pagination={{ pageSize: 10 }} 
+                    scroll={{ x: 1000,y: 600 }} 
+                />
                 <Title/>
             </div>
         )

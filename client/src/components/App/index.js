@@ -56,17 +56,17 @@ export default class App extends React.Component{
         </Container>
         <Title/> */}
 
-        <Title/>
+        {/* <Title/>
         <Container textAlign='center'>
           <ModelPurchase/>
-        </Container>
-
+        </Container> */}
+{/* 
         <Title/>
         <Container textAlign='left'>
           <Title/>
           <TableM/>
           <Title/>
-        </Container>
+        </Container> */}
 
         {/* <Title/>
         <Container textAlign='right'>
