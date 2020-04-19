@@ -6,6 +6,9 @@ import Title from 'antd/lib/skeleton/Title';
 import ModelHistory from '../Badge/ModelHistory';
 import ModelResult from '../Badge/ModelResult';
 
+import { Container } from 'semantic-ui-react';
+import { Button } from "semantic-ui-react";
+
 const columnsHistory = [
   {
   title: 'Date',
@@ -110,6 +113,11 @@ export default class TableM extends React.Component{
   componentDidMount(){
     this.getSimulatedStock()
   }
+
+  ClickBack = ()=>{
+    console.log('cClick  : Back');
+  }
+
   render(){
     return(
       <div>
@@ -133,6 +141,15 @@ export default class TableM extends React.Component{
           scroll={{ x: 1000,y: 600 }} 
         />
         <Title/>
+
+        <Title/>
+        <Container textAlign='right'>
+          <Title/>
+          <Button color="blue" onClick={this.ClickBack} >Back</Button>  
+          <Title/>
+        </Container>
+        <Title/>
+
       </div>
     )
   }

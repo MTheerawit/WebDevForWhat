@@ -4,7 +4,7 @@ import './index.css';
 import Title from 'antd/lib/skeleton/Title';
 
 import { Container } from 'semantic-ui-react';
-import { Button } from "semantic-ui-react";
+// import { Button } from "semantic-ui-react";
 
 import Header from '../Badge/Header';
 import TableR from '../Table/TableR';
@@ -15,12 +15,12 @@ import TableM from '../Table/TableM';
 
 export default class App extends React.Component{
 
-  ClickBack = ()=>{
-    console.log('cClick  : Back');
-  }
-  ClickNext = ()=>{
-    console.log('cClick  : Next');
-  }
+  // ClickBack = ()=>{
+  //   console.log('cClick  : Back');
+  // }
+  // ClickNext = ()=>{
+  //   console.log('cClick  : Next');
+  // }
 
   render(){
     return (
@@ -48,13 +48,13 @@ export default class App extends React.Component{
           <Title/>
         </Container>
 
-        <Title/>
+        {/* <Title/>
         <Container textAlign='right'>
           <Title/>
           <Button inverted color="teal" onClick={this.ClickNext} >Next</Button> 
           <Title/>
         </Container>
-        <Title/>
+        <Title/> */}
 
         <Title/>
         <Container textAlign='center'>
@@ -68,13 +68,13 @@ export default class App extends React.Component{
           <Title/>
         </Container>
 
-        <Title/>
+        {/* <Title/>
         <Container textAlign='right'>
           <Title/>
           <Button inverted color="blue" onClick={this.ClickBack} >Back</Button>  
           <Title/>
         </Container>
-        <Title/>
+        <Title/> */}
 
       </div>
     );
