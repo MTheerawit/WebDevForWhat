@@ -27,7 +27,7 @@ const getSimulatedStock = (req, res) => {
         }
     }
 
-    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade_tmp \
+    queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade \
     where symbol in (select symbol from company where set50 = '1') \
     and " + allStockStr + " \
     and date between '" + dateRange[0].beginDate + "' and '" + dateRange[0].endDate + "';"
