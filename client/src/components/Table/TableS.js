@@ -25,10 +25,15 @@ const getOptionsYear = (number, prefix = "") =>
 
 const { Option } = Select;
 
-const dataSymbol = [];
-for (let i = 10; i < 36; i++) {
-    dataSymbol.push(<Option key={i}>{'A' + i}</Option>);
-}
+// const filterOption = (input, option) => {
+//     if (select.includes(option.children.toLowerCase())) {
+//     return false;
+//     }
+//     return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+// };
+
+const select = [];
+const options = ["ADVANC","AOT","BANPU","BBL","BDMS","BEM","BGRIM","BH","BJC","BPP","BTS","CBG","CPALL","CPF","CPN","DELTA","DTAC","EA","EGCO","GLOBAL","GPSC","GULF","HMPRO","INTUCH","IRPC","IVL","KBANK","KTB","KTC","LH","MINT","MTC","OSP","PTT","PTTEP","PTTGC","RATCH","SAWAD","SCB","SCC","TCAP","TISCO","TMB","TOA","TOP","TU","VGI","WHA"];
 
 export default class TableS extends React.Component{
 
@@ -39,39 +44,37 @@ export default class TableS extends React.Component{
         EYear: '',
         EMonth: '',
         EDay: '',
-        // dataSymbol: [],
-        value: undefined
     }
 
     handleChangeDate = (e, { name, value }) => {
         this.setState({ [name]: value })
+        console.log(`selected ${value}`)
         console.log({[name]: value})
     }
 
-    handleChangeSelected=(value)=>{
-        console.log(`selected ${value}`);
+    InputNumberSymbol = (value)=>{
+        console.log('inputnum : ', value);
     }
 
-    handleSearch = (value) => {
-        this.setState({ data: [] });
-        console.log(`Search ${value}`);
-    };
-    
-    handleChange = (value) => {
-        this.setState({ value });
+    onChange=(value)=> {
         console.log(`selected ${value}`);
-    };
-
-    InputNumber = (value)=>{
-        console.log('inputnum : ', value);
+    }
+      
+    onBlur=()=> {
+        console.log("blur");
+    }
+      
+    onFocus=()=> {
+        console.log("focus");
+    }
+      
+    onSearch=(value)=> {
+        console.log(`search ${value}`);
     }
 
     render(){
 
         const { value } = this.state
-        // const options = this.state.data.map(d => (
-        //     <Option key={d.value}>{d.text}</Option>
-        // ));
 
         return(
             <div>
@@ -157,20 +160,23 @@ export default class TableS extends React.Component{
                 <Title/>
                 <Select
                     showSearch
-                    value={this.state.value}
-                    style={{ width: 300 }}
-                    placeholder="Select symbol"
-                    optionFilterProp="dataSymbol"
-                    defaultActiveFirstOption={false}
-                    showArrow={false}
-                    filterOption={false}
-                    onSearch={this.handleSearch}
-                    onChange={this.handleChange}
-                    notFoundContent={null}
-                >
-                    {dataSymbol}
+                    style={{ width: 200 }}
+                    placeholder="Select a symbol"
+                    optionFilterProp="children"
+                    onChange={this.onChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    onSearch={this.onSearch}
+                    filterOption={true}
+                    >
+                    {options.map(
+                        (val, i) =>
+                        !select.includes(val) && (
+                            <Option value={val}>{val.toUpperCase()}</Option>
+                        )
+                    )}
                 </Select>
-                <InputNumber min={0} max={1000000} defaultValue={this.state.value} onChange={this.InputNumber} />
+                <InputNumber min={0} max={1000000} defaultValue={this.state.value} onChange={this.InputNumberSymbol} />
                 <Title/>
 
                 <Title/>
