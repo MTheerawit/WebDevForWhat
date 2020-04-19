@@ -14,8 +14,7 @@ export default class SelectSymbol_EnterAmount extends React.Component{
                     <Badge variant="secondary">Select</Badge>
                     <Badge variant="info">Symbol</Badge>
                     <Badge variant="primary">&</Badge>
-                    <Badge variant="warning">Enter</Badge>
-                    <Badge variant="danger">Amount</Badge></h1>
+                    <Badge variant="warning">Amount</Badge></h1>
               </td>
             </tr>
           </tbody>
