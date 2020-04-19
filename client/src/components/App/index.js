@@ -11,7 +11,7 @@ import TableR from '../Table/TableR';
 import ModelPurchase from '../Badge/ModelPurchase';
 import TableS from '../Table/TableS';
 
-import TableM from '../Table/TableM';
+// import TableM from '../Table/TableM';
 
 export default class App extends React.Component{
 
