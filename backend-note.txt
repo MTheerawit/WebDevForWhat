@@ -42,7 +42,7 @@ copy trade from 'D:\Project4D_resource\trade-db.csv' delimiter ',' csv header;
 // encode in front-end
 stockList = [{"name":"GULF","amount":10000},{"name":"GPSC","amount":5000}]
 stockList = encodeURIComponent(JSON.stringify(stockList))
-// decode from request 
+// decode from request
 stockList = req.params.stockList
 stockList = JSON.parse(decodeURIComponent(stockList))
 

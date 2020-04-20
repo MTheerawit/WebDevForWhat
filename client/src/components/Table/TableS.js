@@ -136,9 +136,27 @@ export default class TableS extends React.Component{
         Input_S5:'',
         dataHistory: [],
         dataResult: [],
+        stockList: [],
+        dateRange: []
     }
 
     ClickNext = ()=>{
+        this.state.stockList = [
+            {"name": this.state.Symbol_S1 ,"amount": this.state.Input_S1 },
+            {"name": this.state.Symbol_S2 ,"amount": this.state.Input_S2 },
+            {"name": this.state.Symbol_S3 ,"amount": this.state.Input_S3 },
+            {"name": this.state.Symbol_S4 ,"amount": this.state.Input_S4 },
+            {"name": this.state.Symbol_S5 ,"amount": this.state.Input_S5 }
+        ]
+        this.state.stockList = encodeURIComponent(JSON.stringify(this.state.stockList))
+        this.state.dateRange = [
+            {
+                beginDate: this.state.SYear + '-' + ('0' + this.state.SMonth).slice(-2) + '-' + ('0' + this.state.SDay).slice(-2), 
+                endDate: this.state.EYear + '-' + ('0' + this.state.EMonth).slice(-2) + '-' + ('0' + this.state.EDay).slice(-2)
+            }
+        ]
+        this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
+        this.componentDidMount()
         console.log('cClick  : Next');
     }
 
@@ -273,7 +291,8 @@ export default class TableS extends React.Component{
     };
     // -------------------------------------------------------
     getSimulatedStock() {
-        fetch("http://localhost:9000/getSimulatedStock")
+
+        fetch("http://localhost:9000/getSimulatedStock/" + this.state.stockList + '/' + this.state.dateRange)
         .then(res => res.json())
         .then(res => {
           this.setState({ dataHistory: res.history })
@@ -282,7 +301,7 @@ export default class TableS extends React.Component{
         .catch(err => err)
     }
     componentDidMount(){
-    this.getSimulatedStock()
+        this.getSimulatedStock()
     }
 
     render(){
