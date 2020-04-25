@@ -139,6 +139,17 @@ export default class TableS extends React.Component{
         dateRange: []
     }
 
+    muyuu = () =>{
+        this.state.dateRange = [
+            {
+                beginDate: this.state.SYear + '-' + ('0' + this.state.SMonth).slice(-2) + '-' + ('0' + this.state.SDay).slice(-2), 
+                endDate: this.state.EYear + '-' + ('0' + this.state.EMonth).slice(-2) + '-' + ('0' + this.state.EDay).slice(-2)
+            }
+        ]
+        this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
+        this.componentDidMount()
+    }
+
     ClickNext = ()=>{
         if (
             (
@@ -166,14 +177,78 @@ export default class TableS extends React.Component{
                 {"name": this.state.Symbol_S5 ,"amount": this.state.Input_S5 }
             ]
             this.state.stockList = encodeURIComponent(JSON.stringify(this.state.stockList))
-            this.state.dateRange = [
-                {
-                    beginDate: this.state.SYear + '-' + ('0' + this.state.SMonth).slice(-2) + '-' + ('0' + this.state.SDay).slice(-2), 
-                    endDate: this.state.EYear + '-' + ('0' + this.state.EMonth).slice(-2) + '-' + ('0' + this.state.EDay).slice(-2)
+
+            if((this.state.SMonth == "09" && this.state.SDay > "30") || (this.state.SMonth == "11" && this.state.SDay > "30") || (this.state.EMonth == "09" && this.state.EDay > "30") || (this.state.EMonth == "11" && this.state.EDay > "30")){
+                message.info('this month only have 30 days');
+            } else {
+                if(this.state.SYear < this.state.EYear && this.state.SMonth >= "08" && this.state.EMonth <= "02"){
+                    if(this.state.SMonth == "08" && this.state.SDay >= "16"){
+                        if(this.state.EMonth == "02" && this.state.EDay <= "19"){
+                            this.muyuu()
+                        } else if(this.state.EMonth == "01"){
+                            this.muyuu()
+                        } else {
+                            message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                        }
+                    } else if(this.state.SMonth != "08"){
+                        if(this.state.EMonth == "02" && this.state.EDay <= "19"){
+                            this.muyuu()
+                        } else if(this.state.EMonth == "01"){
+                            this.muyuu()
+                        } else {
+                            message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                        }
+                    } else {
+                        message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                    }
+                }else if(this.state.SYear == this.state.EYear){
+                    if(this.state.SYear == "2019" && this.state.SMonth >= "08"){
+                        if(this.state.SMonth < this.state.EMonth){
+                            if(this.state.SMonth == "08" && this.state.SDay >= "16"){
+                                this.muyuu()
+                            } else if(this.state.SMonth > "08"){
+                                this.muyuu()
+                            } else {
+                                message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                            }
+                        } else if(this.state.SMonth == this.state.EMonth){
+                            if(this.state.SMonth == "08" && this.state.SDay >= "16" && this.state.SDay < this.state.EDay){
+                                this.muyuu()
+                            } else if(this.state.SMonth > "08" && this.state.SDay < this.state.EDay){
+                                this.muyuu()
+                            } else {
+                                message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                            }
+                        } else {
+                            message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                        }
+                    } else if(this.state.SYear == "2020" && this.state.EMonth <= "02"){
+                        if(this.state.SMonth < this.state.EMonth){
+                            if(this.state.EMonth == "02" && this.state.EDay <= 19){
+                                this.muyuu()
+                            } else if(this.state.EMonth == "01"){
+                                this.muyuu()
+                            } else {
+                                message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                            } 
+                        } else if(this.state.SMonth == this.state.EMonth){
+                            if(this.state.EMonth == "02" && this.state.EDay <= 19 && this.state.SDay < this.state.EDay){
+                                this.muyuu()
+                            } else if(this.state.EMonth == "01" && this.state.SDay < this.state.EDay){
+                                this.muyuu()
+                            } else {
+                                message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                            }
+                        } else {
+                            message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                        }
+                    } else {
+                        message.info('Please select date range between 2019-08-16 to 2020-02-19');
+                    }
+                } else {
+                    message.info('Please select date range between 2019-08-16 to 2020-02-19');
                 }
-            ]
-            this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
-            this.componentDidMount()
+            }
             console.log('cClick  : Next');
         }else{
             message.info('Please select at least one stock or complete your date range to this simulation.');
@@ -342,6 +417,7 @@ export default class TableS extends React.Component{
         const { Option } = Select;
         const { value,select } = this.state
         const options = ["ADVANC","AOT","BANPU","BBL","BDMS","BEM","BGRIM","BH","BJC","BPP","BTS","CBG","CPALL","CPF","CPN","DELTA","DTAC","EA","EGCO","GLOBAL","GPSC","GULF","HMPRO","INTUCH","IRPC","IVL","KBANK","KTB","KTC","LH","MINT","MTC","OSP","PTT","PTTEP","PTTGC","RATCH","SAWAD","SCB","SCC","TCAP","TISCO","TMB","TOA","TOP","TU","VGI","WHA"];
+        
 
         return(
             <div>
