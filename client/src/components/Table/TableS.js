@@ -6,7 +6,7 @@ import {  Grid, Dropdown, Form ,Container,Segment,Button } from 'semantic-ui-rea
 import _ from "lodash";
 
 import 'antd/dist/antd.css';
-import { Table, Tag, Select, InputNumber } from 'antd';
+import { Table, Tag, Select, InputNumber,  message  } from 'antd';
 
 import Title from 'antd/lib/skeleton/Title';
 import SelectDate from '../Badge/SelectDate';
@@ -106,8 +106,7 @@ title: 'Profit',
 dataIndex: 'profit',
 key: 'profit',
 },
-  ];
-  
+];
 
 export default class TableS extends React.Component{
 
@@ -141,23 +140,33 @@ export default class TableS extends React.Component{
     }
 
     ClickNext = ()=>{
-        this.state.stockList = [
-            {"name": this.state.Symbol_S1 ,"amount": this.state.Input_S1 },
-            {"name": this.state.Symbol_S2 ,"amount": this.state.Input_S2 },
-            {"name": this.state.Symbol_S3 ,"amount": this.state.Input_S3 },
-            {"name": this.state.Symbol_S4 ,"amount": this.state.Input_S4 },
-            {"name": this.state.Symbol_S5 ,"amount": this.state.Input_S5 }
-        ]
-        this.state.stockList = encodeURIComponent(JSON.stringify(this.state.stockList))
-        this.state.dateRange = [
-            {
-                beginDate: this.state.SYear + '-' + ('0' + this.state.SMonth).slice(-2) + '-' + ('0' + this.state.SDay).slice(-2), 
-                endDate: this.state.EYear + '-' + ('0' + this.state.EMonth).slice(-2) + '-' + ('0' + this.state.EDay).slice(-2)
-            }
-        ]
-        this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
-        this.componentDidMount()
-        console.log('cClick  : Next');
+        if (
+            ((this.state.Symbol_S1!='')&&(this.state.Input_S1!=''))||
+            ((this.state.Symbol_S2!='')&&(this.state.Input_S2!=''))||
+            ((this.state.Symbol_S3!='')&&(this.state.Input_S3!=''))||
+            ((this.state.Symbol_S4!='')&&(this.state.Input_S4!=''))||
+            ((this.state.Symbol_S5!='')&&(this.state.Input_S5!=''))
+        ){
+            this.state.stockList = [
+                {"name": this.state.Symbol_S1 ,"amount": this.state.Input_S1 },
+                {"name": this.state.Symbol_S2 ,"amount": this.state.Input_S2 },
+                {"name": this.state.Symbol_S3 ,"amount": this.state.Input_S3 },
+                {"name": this.state.Symbol_S4 ,"amount": this.state.Input_S4 },
+                {"name": this.state.Symbol_S5 ,"amount": this.state.Input_S5 }
+            ]
+            this.state.stockList = encodeURIComponent(JSON.stringify(this.state.stockList))
+            this.state.dateRange = [
+                {
+                    beginDate: this.state.SYear + '-' + ('0' + this.state.SMonth).slice(-2) + '-' + ('0' + this.state.SDay).slice(-2), 
+                    endDate: this.state.EYear + '-' + ('0' + this.state.EMonth).slice(-2) + '-' + ('0' + this.state.EDay).slice(-2)
+                }
+            ]
+            this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
+            this.componentDidMount()
+            console.log('cClick  : Next');
+        }else{
+            message.info('Please select at least one stock to this simulation.');
+        }
     }
 
     handleChangeDate = (e, { name, value }) => {
@@ -555,12 +564,14 @@ export default class TableS extends React.Component{
                     </Grid.Column>
                     <Grid.Column>
                         <Segment secondary>
-                            select
-                            <pre>Symbol 1 : {JSON.stringify(this.state.Symbol_S1, null, 6)} Amouth : {JSON.stringify(this.state.Input_S1, null, 6)}</pre>
-                            <pre>Symbol 2 : {JSON.stringify(this.state.Symbol_S2, null, 6)} Amouth : {JSON.stringify(this.state.Input_S2, null, 6)}</pre>
-                            <pre>Symbol 3 : {JSON.stringify(this.state.Symbol_S3, null, 6)} Amouth : {JSON.stringify(this.state.Input_S3, null, 6)}</pre>
-                            <pre>Symbol 4 : {JSON.stringify(this.state.Symbol_S4, null, 6)} Amouth : {JSON.stringify(this.state.Input_S4, null, 6)}</pre>
-                            <pre>Symbol 5 : {JSON.stringify(this.state.Symbol_S5, null, 6)} Amouth : {JSON.stringify(this.state.Input_S5, null, 6)}</pre>
+                            Date
+                            <pre>Start : {JSON.stringify(this.state.SYear, null, 6)}/{JSON.stringify(this.state.SMonth, null, 6)}/{JSON.stringify(this.state.SDay, null, 6)} End : {JSON.stringify(this.state.EYear, null, 6)}/{JSON.stringify(this.state.EMonth, null, 6)}/{JSON.stringify(this.state.EDay, null, 6)}</pre>
+                            Select
+                            <pre>Symbol 1 : {JSON.stringify(this.state.Symbol_S1, null, 6)} Amount : {JSON.stringify(this.state.Input_S1, null, 6)}</pre>
+                            <pre>Symbol 2 : {JSON.stringify(this.state.Symbol_S2, null, 6)} Amount : {JSON.stringify(this.state.Input_S2, null, 6)}</pre>
+                            <pre>Symbol 3 : {JSON.stringify(this.state.Symbol_S3, null, 6)} Amount : {JSON.stringify(this.state.Input_S3, null, 6)}</pre>
+                            <pre>Symbol 4 : {JSON.stringify(this.state.Symbol_S4, null, 6)} Amount : {JSON.stringify(this.state.Input_S4, null, 6)}</pre>
+                            <pre>Symbol 5 : {JSON.stringify(this.state.Symbol_S5, null, 6)} Amount : {JSON.stringify(this.state.Input_S5, null, 6)}</pre>
                         </Segment>
                     </Grid.Column>
                 </Grid>
