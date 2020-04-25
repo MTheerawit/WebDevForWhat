@@ -141,11 +141,22 @@ export default class TableS extends React.Component{
 
     ClickNext = ()=>{
         if (
-            ((this.state.Symbol_S1!='')&&(this.state.Input_S1!=''))||
-            ((this.state.Symbol_S2!='')&&(this.state.Input_S2!=''))||
-            ((this.state.Symbol_S3!='')&&(this.state.Input_S3!=''))||
-            ((this.state.Symbol_S4!='')&&(this.state.Input_S4!=''))||
-            ((this.state.Symbol_S5!='')&&(this.state.Input_S5!=''))
+            (
+                (
+                    (this.state.SYear!='')&&
+                    (this.state.SMonth!='')&&
+                    (this.state.SDay!='')&&
+                    (this.state.EYear!='')&&
+                    (this.state.EMonth!='')&&
+                    (this.state.EDay!='')
+                )
+            )&&(
+                ((this.state.Symbol_S1!='')&&(this.state.Input_S1!=''))||
+                ((this.state.Symbol_S2!='')&&(this.state.Input_S2!=''))||
+                ((this.state.Symbol_S3!='')&&(this.state.Input_S3!=''))||
+                ((this.state.Symbol_S4!='')&&(this.state.Input_S4!=''))||
+                ((this.state.Symbol_S5!='')&&(this.state.Input_S5!=''))
+            )
         ){
             this.state.stockList = [
                 {"name": this.state.Symbol_S1 ,"amount": this.state.Input_S1 },
@@ -165,7 +176,7 @@ export default class TableS extends React.Component{
             this.componentDidMount()
             console.log('cClick  : Next');
         }else{
-            message.info('Please select at least one stock to this simulation.');
+            message.info('Please select at least one stock or complete your date range to this simulation.');
         }
     }
 
