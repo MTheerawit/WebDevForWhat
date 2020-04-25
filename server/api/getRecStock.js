@@ -2,7 +2,7 @@ const pool = require('./pool-connection')
 const moment = require('moment')
 
 const getRecStock = (req, res) => {
-    todayDate = '2019-08-30'
+    todayDate = '2019-08-22'
     queryStr = "select date,symbol,open,high,low,close,percentChange,volume,money,status from trade \
     where (status = '1.0' or status = '-1.0') and date = '" + todayDate + "' \
     and symbol in (select symbol from company where set50 = '1') order by macd desc;"
