@@ -184,7 +184,7 @@ export default class TableR extends React.Component{
               placeholder='Day'
               value={value}
             />
-            <Button color="teal" onClick={this.ClickNext} >mayu</Button>
+            <Button color="teal" onClick={this.ClickNext} >View</Button>
           </Grid.Column>
         </Grid>
 
