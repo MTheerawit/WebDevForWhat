@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
     res.send("index")
 })
 app.get('/set50', getStock)
-app.get('/getRecStock', getRecStock)
+app.get('/getRecStock/:dateRange', getRecStock)
 app.get('/getSimulatedStock/:stockList/:dateRange', getSimulatedStock)
 // app.get('/getSimulatedStock', getSimulatedStock)
 app.get('/getProfit', getProfitPercent)

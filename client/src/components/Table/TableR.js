@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../node_modules/antd/dist/antd.css';
-import { Table, Tag } from 'antd';
+import { Table, Tag, message } from 'antd';
 
 import {  Grid, Dropdown,Button } from 'semantic-ui-react'
 import _ from "lodash";
@@ -83,9 +83,43 @@ export default class TableR extends React.Component{
     Year: '',
     Month: '',
     Day: '',
+    dateRange: '',
   }
   ClickNext = ()=>{
-    console.log('muyuuu')
+    console.log(this.state.Year)
+    console.log(this.state.Month)
+    console.log(this.state.Day)
+    if((this.state.Month == "09" && this.state.Day > "30") || (this.state.Month == "11" && this.state.Day > "30")){
+      message.info('this month only have 30 days');
+    } else {
+      if(this.state.Year == "2019" && this.state.Month >= "08"){
+        if(this.state.Month == "08" && this.state.Day >= "16"){
+          this.state.dateRange = this.state.Year + '-' + ('0' + this.state.Month).slice(-2) + '-' + ('0' + this.state.Day).slice(-2)
+          this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
+          this.componentDidMount()
+        } else if(this.state.Month > "08"){
+          this.state.dateRange = this.state.Year + '-' + ('0' + this.state.Month).slice(-2) + '-' + ('0' + this.state.Day).slice(-2)
+          this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
+          this.componentDidMount()
+        } else {
+          message.info('Please select date range between 2019-08-16 to 2020-02-19');
+        }
+      } else if(this.state.Year == "2020" && this.state.Month <= "02"){
+        if(this.state.Month == "02" && this.state.Day <= "19"){
+          this.state.dateRange = this.state.Year + '-' + ('0' + this.state.Month).slice(-2) + '-' + ('0' + this.state.Day).slice(-2)
+          this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
+          this.componentDidMount()
+        } else if(this.state.Month == "01"){
+          this.state.dateRange = this.state.Year + '-' + ('0' + this.state.Month).slice(-2) + '-' + ('0' + this.state.Day).slice(-2)
+          this.state.dateRange = encodeURIComponent(JSON.stringify(this.state.dateRange))
+          this.componentDidMount()
+        } else {
+          message.info('Please select date range between 2019-08-16 to 2020-02-19');
+        }
+      } else {
+        message.info('Please select date range between 2019-08-16 to 2020-02-19');
+      }
+    }
   }
   handleChangeDate = (e, { name, value }) => {
     this.setState({ [name]: value })
@@ -93,7 +127,7 @@ export default class TableR extends React.Component{
     console.log({[name]: value})
   }
   callAPI() {
-    fetch("http://localhost:9000/getRecStock")
+    fetch("http://localhost:9000/getRecStock/" + this.state.dateRange)
     .then(res => res.json())
     .then(res => {
       this.setState({ data: res})
